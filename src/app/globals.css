@@ -38,3 +38,22 @@ body {
 .text-shadow-strong {
   text-shadow: 0px 0px 1px #615a5a, 0 0 2px #615a5a;
 }
+
+.box-shadow-strong {
+  box-shadow: 0px 0px 5px #615a5a, 0 0 10px #615a5a;
+}
+
+/* Custom scrollbar for category list */
+
+.category-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.category-list::-webkit-scrollbar-thumb {
+  background-color: rgba(100, 100, 100, 0.5);
+  border-radius: 4px;
+}
+
+.category-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(100, 100, 100, 0.9);
+}

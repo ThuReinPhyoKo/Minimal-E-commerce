@@ -14,7 +14,7 @@ export default function AppAutocomplete(props: AppAutocompleteProps) {
       id="search-bar"
       className="bg-black/40 backdrop-blur-md border border-white/10 w-96 h-12 rounded-full flex items-center"
     >
-      <Search className="text-gray-400 ml-5" />
+      <Search className="text-gray-300 ml-5" />
 
       <Autocomplete
         {...props}

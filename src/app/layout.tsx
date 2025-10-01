@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
-import Nav from "./components/nav";
+import Nav from "./components/layout/nav";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/react-query";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -29,8 +31,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${roboto.variable} antialiased`}
       >
-        <Nav />
-        {children}
+        <QueryClientProvider client={queryClient}>
+          <Nav />
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   );
