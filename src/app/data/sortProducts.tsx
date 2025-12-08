@@ -14,7 +14,7 @@ export default function SortProducts() {
                 name="sort"
                 type="radio"
                 defaultChecked
-                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-400 checked:ring-2 checked:ring-yellow-800 checked:ring-offset-2"
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-400 checked:ring-1 checked:ring-gray-400 checked:ring-offset-2"
               />
               <span className="ml-2 text-gray-900 text-sm">A - Z</span>
             </label>
