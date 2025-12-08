@@ -4,6 +4,7 @@ export default function StackedProfiles() {
     return (
         <div className="flex mb-5">
             <Image
+                unoptimized
                 src="https://randomuser.me/api/portraits/men/32.jpg"
                 width={40}
                 height={40}
@@ -11,6 +12,7 @@ export default function StackedProfiles() {
                 className="rounded-full border-2 border-white -ml-2"
             />
             <Image
+                unoptimized
                 src="https://randomuser.me/api/portraits/men/34.jpg"
                 width={40}
                 height={40}
@@ -18,6 +20,7 @@ export default function StackedProfiles() {
                 className="rounded-full border-2 border-white -ml-2"
             />
             <Image
+                unoptimized
                 src="https://randomuser.me/api/portraits/men/33.jpg"
                 width={40}
                 height={40}
@@ -25,6 +28,7 @@ export default function StackedProfiles() {
                 className="rounded-full border-2 border-white -ml-2"
             />
             <Image
+                unoptimized
                 src="https://randomuser.me/api/portraits/women/32.jpg"
                 width={40}
                 height={40}
@@ -32,6 +36,7 @@ export default function StackedProfiles() {
                 className="rounded-full border-2 border-white -ml-2"
             />
             <Image
+                unoptimized
                 src="https://randomuser.me/api/portraits/men/44.jpg"
                 width={40}
                 height={40}
@@ -39,6 +44,7 @@ export default function StackedProfiles() {
                 className="rounded-full border-2 border-white -ml-2"
             />
             <Image
+                unoptimized
                 src="https://randomuser.me/api/portraits/women/33.jpg"
                 width={40}
                 height={40}
@@ -46,6 +52,7 @@ export default function StackedProfiles() {
                 className="rounded-full border-2 border-white -ml-2"
             />
             <Image
+                unoptimized
                 src="https://randomuser.me/api/portraits/women/42.jpg"
                 width={40}
                 height={40}
