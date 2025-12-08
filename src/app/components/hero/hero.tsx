@@ -8,7 +8,7 @@ export default function Hero() {
             <div className="absolute inset-0 bg-black opacity-18"></div>
             <div className="relative flex flex-col items-center justify-center w-full h-full">
               <StackedProfiles />
-              <h1 className="font-roboto text-8xl font-bold text-gray-700">Minimal</h1>
+              <h1 className="font-roboto text-8xl font-bold text-gray-700">Minimal T_T</h1>
               <h2 className="font-inter tracking-widest text-[#fff700] text-7xl font-bold ">Essentials</h2>
               <p className="text-gray-700 text-center text-xl font-inter my-5">Discover our curated collection of thoughtfully designed<br/> products for the modern lifestyle. Less is more.</p>
               <div className="flex items-center gap-8">
