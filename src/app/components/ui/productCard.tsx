@@ -5,13 +5,14 @@ import { Button } from "./button";
 
 interface ProductCardProps {
   product: Product;
+  addToCart: (product: Product) => void;
 }
 
-const discountPrice = (price: number, discountPercentage: number) => {
+export const discountPrice = (price: number, discountPercentage: number) => {
   return (price - (price * discountPercentage/100)).toFixed(2);
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, addToCart }: ProductCardProps) {
   
 
   return (
@@ -32,6 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           size="sm"
           icon={<ShoppingCart size={18} className="text-gray-600" />}
           iconPosition="right"
+          onClick={() => addToCart(product)}
           className="absolute bottom-2 right-2 transform opacity-0 translate-y-2 hover:scale-110 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-0 py-0 rounded-full"
         >
           <span className="font-inter font-semibold text-gray-700 text-sm">Add to cart</span>

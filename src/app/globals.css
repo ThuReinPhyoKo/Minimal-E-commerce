@@ -45,6 +45,15 @@ body {
 
 /* Custom scrollbar for category list */
 
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+}
+
 .category-list::-webkit-scrollbar {
   width: 5px;
 }

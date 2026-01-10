@@ -1,10 +1,24 @@
 'use client';
 import { Tooltip } from "@mui/material";
-import { Heart, Search, ShoppingCart, Truck, User } from "lucide-react";
+import { Heart, ShoppingCart, Truck, User } from "lucide-react";
 import { Button } from "../ui/button";
 import AppAutocomplete from "../ui/search";
 
-export default function Nav() {
+interface NavProps {
+    onCartOpen?: () => void;
+    onWishlistOpen?: () => void;
+    onYourOrderOpen?: () => void;
+    cartItems: {
+    id: number;
+    title: string;
+    price: number;
+    quantity: number;
+    discountPercentage: number;
+    thumbnail: string;
+  }[];
+}
+
+export default function Nav( { cartItems = [], onCartOpen, onWishlistOpen, onYourOrderOpen }: NavProps ) {
 
     return (
         <nav className="w-full p-5 flex justify-center items-center fixed top-0 z-10">
@@ -16,9 +30,9 @@ export default function Nav() {
                         <Button
                             variant="transparent"
                             size="sm"
-                            icon={<User className="text-gray-300 group-hover:text-gray-700 transition-colors" />}
+                            icon={<User className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Login"
-                            className="group hover:bg-yellow-400 px-0 py-0"
+                            className="group hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Login</span>
                         </Button>
@@ -33,9 +47,10 @@ export default function Nav() {
                         <Button
                             variant="transparent"
                             size="sm"
-                            icon={<Heart className="text-gray-300 group-hover:text-gray-700 transition-colors" />}
+                            icon={<Heart className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Wishlist"
-                            className="group hover:bg-yellow-400 px-0 py-0"
+                            onClick={onWishlistOpen}
+                            className="group hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Wishlist</span>
                         </Button>
@@ -45,11 +60,13 @@ export default function Nav() {
                         <Button
                             variant="transparent"
                             size="sm"
-                            icon={<ShoppingCart className="text-gray-300 group-hover:text-gray-700 transition-colors" />}
-                            aria-label="Cart"
-                            className="group hover:bg-yellow-400 px-0 py-0"
+                            icon={<ShoppingCart className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
+                            aria-label="Open cart"
+                            onClick={ onCartOpen }
+                            className="group relative hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Cart</span>
+                            <span className="absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full">{cartItems.reduce((total, item) => total + item.quantity, 0)}</span>
                         </Button>
                     </Tooltip>
                     <div id="divider" className="w-[1px] h-5 bg-gray-400 mx-2"></div>
@@ -57,9 +74,10 @@ export default function Nav() {
                         <Button
                             variant="transparent"
                             size="sm"
-                            icon={<Truck className="text-gray-300 group-hover:text-gray-700 transition-colors" />}
+                            icon={<Truck className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Your Orders"
-                            className="group hover:bg-yellow-400 px-0 py-0"
+                            onClick={ onYourOrderOpen }
+                            className="group hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Your Orders</span>
                         </Button>
