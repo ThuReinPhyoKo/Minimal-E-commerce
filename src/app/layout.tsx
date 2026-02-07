@@ -3,6 +3,7 @@ import { Inter, Roboto } from "next/font/google";
 import "./globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/react-query";
+import ClientShell from "./wrapper/clientshell";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -31,7 +32,9 @@ export default function RootLayout({
         className={`${inter.variable} ${roboto.variable} antialiased`}
       >
         <QueryClientProvider client={queryClient}>
+          <ClientShell>
           {children}
+          </ClientShell>
         </QueryClientProvider>
       </body>
     </html>

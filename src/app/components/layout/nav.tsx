@@ -3,22 +3,20 @@ import { Tooltip } from "@mui/material";
 import { Heart, ShoppingCart, Truck, User } from "lucide-react";
 import { Button } from "../ui/button";
 import AppAutocomplete from "../ui/search";
+import { useCartStore } from "@/app/store/cartStore";
+import { useWishlistStore } from "@/app/store/wishlistStore";
 
 interface NavProps {
     onCartOpen?: () => void;
     onWishlistOpen?: () => void;
     onYourOrderOpen?: () => void;
-    cartItems: {
-    id: number;
-    title: string;
-    price: number;
-    quantity: number;
-    discountPercentage: number;
-    thumbnail: string;
-  }[];
 }
 
-export default function Nav( { cartItems = [], onCartOpen, onWishlistOpen, onYourOrderOpen }: NavProps ) {
+export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen }: NavProps ) {
+    const CartItems = useCartStore(state => state.items);
+    const CartItemsTotal = CartItems.reduce((total, i) => total + i.quantity, 0)
+    const WishlistItems = useWishlistStore(state => state.items);
+    const WishlistItemsTotal = WishlistItems.length;
 
     return (
         <nav className="w-full p-5 flex justify-center items-center fixed top-0 z-10">
@@ -50,9 +48,10 @@ export default function Nav( { cartItems = [], onCartOpen, onWishlistOpen, onYou
                             icon={<Heart className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Wishlist"
                             onClick={onWishlistOpen}
-                            className="group hover:bg-gray-400 px-0 py-0"
+                            className="group relative hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Wishlist</span>
+                            <span className="absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full">{WishlistItemsTotal}</span> {/* You can add wishlist count here if needed */}
                         </Button>
                     </Tooltip>
                     <div id="divider" className="w-[1px] h-5 bg-gray-400 mx-2"></div>
@@ -66,7 +65,7 @@ export default function Nav( { cartItems = [], onCartOpen, onWishlistOpen, onYou
                             className="group relative hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Cart</span>
-                            <span className="absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full">{cartItems.reduce((total, item) => total + item.quantity, 0)}</span>
+                            <span className="absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full">{CartItemsTotal}</span> {/* You can add cart count here if needed, {cartItems.reduce((total, item) => total + item.quantity, 0)} */}
                         </Button>
                     </Tooltip>
                     <div id="divider" className="w-[1px] h-5 bg-gray-400 mx-2"></div>

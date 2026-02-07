@@ -32,10 +32,15 @@ export const Button: React.FC<ButtonProps> = ({
 	iconPosition = "left",
 	children,
 	className = "",
+	disabled,
 	...props
 }) => {
+	const disabledClasses = "disabled:opacity-80 disabled:cursor-not-allowed disabled:brightness-95 disabled:hover:bg-none";
+
 	return (
-		<button className={`group flex items-center justify-center gap-2 font-inter  transition duration-150 cursor-pointer ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+		<button
+			disabled={disabled}
+			className={`group flex items-center justify-center cursor-pointer gap-2 font-inter transition duration-150 ${variantClasses[variant]} ${sizeClasses[size]} ${disabledClasses} ${className}`}
 			{...props}
 		>
 			{icon && iconPosition === "left" && <span className="flex items-center">{icon}</span>}

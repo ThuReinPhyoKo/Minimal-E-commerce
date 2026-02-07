@@ -7,7 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../theme/mui-theme";
 
 
-export default function ProductsList({addToCart}: { addToCart: (product: { id: number; title: string; price: number; discountPercentage: number; thumbnail: string; rating: number }) => void }) {
+export default function ProductsList() {
   const [page, setPage] = React.useState(1);
   const { data, isLoading, isError } = useProducts(page);
 
@@ -31,7 +31,7 @@ export default function ProductsList({addToCart}: { addToCart: (product: { id: n
       
       <div className="grid grid-cols-4 gap-3">
         {data?.products.map((product) => (
-          <ProductCard key={product.id} product={product} addToCart={addToCart} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
 

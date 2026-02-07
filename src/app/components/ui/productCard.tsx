@@ -1,19 +1,22 @@
+'use client'
 import Image from "next/image";
-import { Product } from "../../lib/getProducts";
+import { Product } from "../../types/wholeProduct";
 import { Heart, ShoppingCart, Star } from "lucide-react";
 import { Button } from "./button";
+import { useCartStore } from "@/app/store/cartStore";
+import { useWishlistStore } from "@/app/store/wishlistStore";
 
 interface ProductCardProps {
   product: Product;
-  addToCart: (product: Product) => void;
 }
 
 export const discountPrice = (price: number, discountPercentage: number) => {
   return (price - (price * discountPercentage/100)).toFixed(2);
 }
 
-export default function ProductCard({ product, addToCart }: ProductCardProps) {
-  
+export default function ProductCard({ product}: ProductCardProps) {
+  const addToCart = useCartStore((state) => state.addToCart);
+  const addToWishlist = useWishlistStore((state) => state.addToWishlist)
 
   return (
     <div className="w-64 border rounded-lg hover:shadow-xl group bg-white cursor-pointer transition-shadow duration-300">
@@ -24,6 +27,7 @@ export default function ProductCard({ product, addToCart }: ProductCardProps) {
           size="sm"
           icon={<Heart size={18} className="text-gray-600" />}
           aria-label="Add to wishlist"
+          onClick={() => addToWishlist(product)}
           className="absolute top-2 right-2 hover:bg-yellow-400 hover:scale-110 group-hover:bg-gray-200 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 px-0 py-0 rounded-full"
         >
           <span className="sr-only">Add to wishlist</span>
