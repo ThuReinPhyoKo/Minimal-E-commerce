@@ -4,7 +4,7 @@ type deliveryRangeOptions = {
     locale?: string;
 }
 
-function formatDate(date: Date, locale: string) {
+export function formatDate(date: Date, locale: string) {
     return date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
 }
 

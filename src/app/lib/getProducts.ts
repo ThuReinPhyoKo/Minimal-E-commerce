@@ -1,4 +1,3 @@
-'use client'
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Product } from '../types/wholeProduct';
@@ -19,6 +18,10 @@ export const fetchProducts = async (page: number): Promise<ProductsResponse> => 
     `https://dummyjson.com/products?limit=${limit}&skip=${skip}`
   );
   
+  // if(page === 3) {
+  //   throw new Error('Simulated error on page 3');
+  // }
+
   return data;
 };
 

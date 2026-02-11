@@ -3,18 +3,20 @@ import { Layers } from "lucide-react";
 import { useCategories } from "../lib/getCategories";
 import { Button } from "../components/ui/button";
 
+export const formatCategoryName = (category: string) => {
+  return category
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+}
+
 export default function CategoryList() {
   const { data, isLoading, isError } = useCategories();
 
   if (isLoading) return <p>Loading categories...</p>;
   if (isError) return <p>Error fetching categories</p>;
 
-  const formatCategoryName = (category: string) => {
-    return category
-        .split('-')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ')
-  }
+
 
   return (
     <div className="w-60 h-[520px] mx-4 p-4 border rounded-lg bg-white">

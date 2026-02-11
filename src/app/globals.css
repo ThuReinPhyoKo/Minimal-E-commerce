@@ -191,3 +191,15 @@ body {
       -1.8em -1.8em 0 0em rgba(var(--loader-rgb), 1);
   }
 }
+
+/* loader2 */
+.loading {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid lightblue;
+  border-right-color: orange;
+  animation: l2 1s infinite linear;
+}
+@keyframes l2 {to{transform: rotate(1turn)}}
+

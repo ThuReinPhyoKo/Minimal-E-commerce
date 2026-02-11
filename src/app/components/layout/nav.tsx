@@ -19,7 +19,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen }: Na
     const WishlistItemsTotal = WishlistItems.length;
 
     return (
-        <nav className="w-full p-5 flex justify-center items-center fixed top-0 z-10">
+        <nav className="w-full p-1 flex justify-center items-center fixed top-0 z-10">
             <div id="nav-container" className="w-[95%] h-16 flex justify-between items-center">
                 <div id="logo-and-login" className="bg-black/40 backdrop-blur-md border border-white/10 w-48 h-12 rounded-full flex justify-center items-center">
                     <h1 className="font-roboto text-2xl font-semibold text-gray-300">Minimal</h1>
