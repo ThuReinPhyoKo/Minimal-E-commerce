@@ -1,15 +1,15 @@
 'use client'
 import { AnimatePresence, motion } from "framer-motion";
-import { Button } from "./button";
-import { useCartStore } from "@/app/store/cartStore";
-import { discountPrice } from "./productCard";
+import { Button } from "../../../components/ui/button";
+import { useCartStore } from "@/app/features/cart/store/cartStore";
+import { discountPrice } from "../../products/components/productCard";
 import { X, MapPin, Truck, Clock } from "lucide-react";
 import Image from "next/image";
 import { getDeliveryRange } from "@/app/utils/getDeliveryRange";
 import { useState } from "react";
 import PaymentMethod from "./paymentMethod";
-import Loader from "./loader";
-import { useYourOrdersStore } from "@/app/store/yourOrdersStore";
+import Loader from "../../../components/ui/loader";
+import { useYourOrdersStore } from "@/app/features/checkout/store/orderStore";
 
 interface CheckoutProps {
     isOpen: boolean;

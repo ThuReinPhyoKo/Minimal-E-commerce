@@ -1,11 +1,11 @@
 'use client'
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "./button";
+import { Button } from "../../../components/ui/button";
 import { X, Heart, ShoppingCart, Trash2 } from "lucide-react";
-import { discountPrice } from "./productCard";
+import { discountPrice } from "../../products/components/productCard";
 import Image from "next/image";
-import { useWishlistStore } from "@/app/store/wishlistStore";
-import { useCartStore } from "@/app/store/cartStore";
+import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
+import { useCartStore } from "@/app/features/cart/store/cartStore";
 
 interface WishlistProps {
     isOpen: boolean;

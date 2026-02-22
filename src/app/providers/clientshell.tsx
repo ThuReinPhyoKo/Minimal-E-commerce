@@ -1,11 +1,11 @@
 "use client"
 import Nav from "../components/layout/nav";
 import React from "react";
-import Cart from "../components/ui/cart";
-import Wishlist from "../components/ui/wishlist";
-import YourOrder from "../components/ui/yourOrder";
+import Cart from "../features/cart/components/cart";
+import Wishlist from "../features/wishlist/components/wishlist";
+import YourOrder from "../features/checkout/components/yourOrder";
 import Footer from "../components/layout/footer";
-import Checkout from "../components/ui/checkout";
+import Checkout from "../features/checkout/components/checkout";
 import useLockBodyScroll from "../hooks/useLockBodyScroll";
 
 export default function ClientShell({ children }: Readonly<{ children: React.ReactNode }>) {

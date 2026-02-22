@@ -2,9 +2,9 @@
 import { Tooltip } from "@mui/material";
 import { Heart, ShoppingCart, Truck, User } from "lucide-react";
 import { Button } from "../ui/button";
-import AppAutocomplete from "../ui/search";
-import { useCartStore } from "@/app/store/cartStore";
-import { useWishlistStore } from "@/app/store/wishlistStore";
+import AppAutocomplete from "../../features/products/components/search";
+import { useCartStore } from "@/app/features/cart/store/cartStore";
+import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 
 interface NavProps {
     onCartOpen?: () => void;

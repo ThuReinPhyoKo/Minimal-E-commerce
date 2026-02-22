@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import { CreditCard, Landmark, Smartphone, ScanLine, Check } from 'lucide-react';
-import { Button } from './button';
+import { Button } from '../../../components/ui/button';
 
 const paymentMethods = [
     { id: 'card' as const,

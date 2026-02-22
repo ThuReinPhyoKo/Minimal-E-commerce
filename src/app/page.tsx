@@ -1,6 +1,6 @@
 import Hero from "./components/hero/hero";
 import Grid from "./components/layout/grid";
-import ProductHeader from "./components/ui/productHeader";
+import ProductHeader from "./features/products/components/productHeader";
 
 export default function Home() {
   

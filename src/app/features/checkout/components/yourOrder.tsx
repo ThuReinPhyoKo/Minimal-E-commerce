@@ -1,8 +1,8 @@
 'use client'
 import { X, Truck } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Button } from "./button";
-import { useYourOrdersStore } from "@/app/store/yourOrdersStore";
+import { Button } from "../../../components/ui/button";
+import { useYourOrdersStore } from "@/app/features/checkout/store/orderStore";
 
 interface YourOrderProps {
     isOpen: boolean;

@@ -1,4 +1,4 @@
-import { Item } from "./item";
+import { Item } from "../../cart/types/item";
 
 export type WishlistStore = {
         items: Item[];

@@ -1,17 +1,23 @@
 "use client";
 import React, { useRef, useEffect } from "react";
-import { useProducts } from "../lib/getProducts";
-import ProductCard from "../components/ui/productCard";
+import { useProducts } from "../api/getProducts";
+import ProductCard from "../components/productCard";
 import { Pagination, Skeleton } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../theme/mui-theme";
+import { theme } from "../../../theme/mui-theme";
 import Image from "next/image";
 import Link from "next/link";
 
+type ProductsListProps = {
+  selectedCategory ?: string;
+  page : number;
+  onPageChange : (page: number) => void;
+}
 
-export default function ProductsList() {
-  const [page, setPage] = React.useState(1);
-  const { data, isLoading, isFetching, isError } = useProducts(page);
+
+export default function ProductsList({selectedCategory, page, onPageChange}: ProductsListProps) {
+
+  const { data, isLoading, isFetching, isError } = useProducts(page, selectedCategory);
 
   const productRef = useRef<HTMLElement | null>(null);
   const isFirstRender = useRef(true);
@@ -23,7 +29,7 @@ export default function ProductsList() {
     }
 
     productRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [ data, isLoading, isFetching]);
+  }, [ page, selectedCategory]);
 
   return (
     <section ref={productRef} className="my-8 flex flex-col items-center justify-between scroll-mt-20 w-full">
@@ -52,7 +58,7 @@ export default function ProductsList() {
           ))
         ) : (
           data?.products.map((product) => (
-            <Link href={`/${product.id}`} key={product.id}>
+            <Link href={`/category/${product.category}/${product.id}`} key={product.id}>
               <ProductCard product={product} />
             </Link>
           ))
@@ -61,10 +67,10 @@ export default function ProductsList() {
       )}
       <ThemeProvider theme={theme}>
         <Pagination 
-          count={13} // Assuming 16 products per page
+          count={data ? Math.ceil(data.total / 16) : 13} // Assuming 16 products per page
           color="secondary"
           page={page}
-          onChange={(_, value) => setPage(value)}
+          onChange={(_, value) => onPageChange(value)}
           className="my-8"
         />
       </ThemeProvider>

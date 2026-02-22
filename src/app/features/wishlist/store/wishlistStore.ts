@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { WishlistStore } from "../types/wishlist";
-import { useCartStore } from "./cartStore";
+import { useCartStore } from "../../cart/store/cartStore";
 
 export const useWishlistStore = create<WishlistStore>()(
     persist(

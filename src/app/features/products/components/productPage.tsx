@@ -1,23 +1,24 @@
 'use client'
 import { useParams } from "next/navigation";
-import { useSingleProduct } from "@/app/lib/getSingleProduct";
+import { useSingleProduct } from "@/app/features/products/api/getSingleProduct";
 import { useState } from "react";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { discountPrice } from "../ui/productCard";
-import { useCartStore } from "@/app/store/cartStore";
-import { Star, Mail } from "lucide-react";
-import { formatCategoryName } from "@/app/data/categoryList";
-import { useWishlistStore } from "@/app/store/wishlistStore";
+import { Button } from "../../../components/ui/button";
+import { discountPrice } from "./productCard";
+import { useCartStore } from "@/app/features/cart/store/cartStore";
+import { Star, Mail, Heart, ShoppingCart } from "lucide-react";
+import { formatCategoryName } from "@/app/features/products/data/categoryList";
+import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { dateFormat } from "@/app/utils/dateFormat";
 
 export default function ProductPage() {
     const [ selectedImage, setSelectedImage ] = useState<string | null>(null);
     const addToCart = useCartStore((state) => state.addToCart);
     const addToWishlist = useWishlistStore((state) => state.addToWishlist);
-    const param = useParams();
-    const id = param.sku as string;
-    const { data, isLoading, isError } = useSingleProduct(id);
+    const params = useParams();
+    const id = params?.id;
+    console.log("How params look like: ", params);
+    const { data, isLoading, isError } = useSingleProduct(id? String(id) : "");
 
     return (
         <div className={`w-full ${ isLoading || isError ? "h-screen" : "" } flex flex-col items-center justify-center bg-white text-black`}>
@@ -78,8 +79,8 @@ export default function ProductPage() {
                         <p className="text-gray-800"><span className="text-gray-500">Warranty:</span> {data.warrantyInformation}</p>
                         {/* <p className="text-gray-500">Stock: <span className="text-gray-800">{data.stock}</span><span className="text-green-600 font-medium"> Available</span></p> */}
                         <div className="flex gap-5">
-                            <Button className="" variant="main" size="lg" onClick={() => addToCart(data)}>Add to Cart</Button>
-                            <Button variant="gray" size="lg" onClick={() => addToWishlist(data)}>Add to Wishlist</Button>
+                            <Button variant="main" size="md" icon={<ShoppingCart className="h-4 w-4" />} onClick={() => addToCart(data)}>Add to Cart</Button>
+                            <Button variant="gray" size="md" icon={<Heart className="h-4 w-4" />} onClick={() => addToWishlist(data)}>Add to Wishlist</Button>
                         </div>
                         <div id="Reviews" className="border border-black/20 my-3 rounded-2xl p-4 w-full">
                             <h3 className="text-lg font-semibold">Customer Reviews</h3>

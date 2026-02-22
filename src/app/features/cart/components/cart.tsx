@@ -1,10 +1,10 @@
 "use client"
-import { Button } from "./button";
+import { Button } from "../../../components/ui/button";
 import { X, CirclePlus, CircleMinus, ShoppingCart } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { discountPrice } from "./productCard";
+import { discountPrice } from "../../products/components/productCard";
 import Image from "next/image";
-import { useCartStore } from "@/app/store/cartStore";
+import { useCartStore } from "@/app/features/cart/store/cartStore";
 
 interface CartProps {
   isOpen: boolean;

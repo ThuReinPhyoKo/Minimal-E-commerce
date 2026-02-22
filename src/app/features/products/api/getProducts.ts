@@ -1,14 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { Product } from '../types/wholeProduct';
-
-// API response type
-export type ProductsResponse = {
-  products: Product[];
-  total: number;
-  skip: number;
-  limit: number;
-};
+import { ProductsResponse } from '../types/productResponse';
+import { fetchByCategory } from './getByCategory';
 
 export const fetchProducts = async (page: number): Promise<ProductsResponse> => {
   const limit = 16; // Number of products per page
@@ -25,13 +18,15 @@ export const fetchProducts = async (page: number): Promise<ProductsResponse> => 
   return data;
 };
 
-const initialData = await fetchProducts(1);
-
-export const useProducts = (page: number) => {
+export const useProducts = (page: number, category?: string) => {
     return useQuery<ProductsResponse>({
-    queryKey: ['products', page],
-    queryFn: () => fetchProducts(page),
-    initialData: page === 1 ? initialData : undefined, // InitialData for the first page
+    queryKey: ['products', category?? "all", page],
+    queryFn: () => {
+      if(category) {
+        return fetchByCategory(category, page);
+      } 
+      return fetchProducts(page)
+    },
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 };

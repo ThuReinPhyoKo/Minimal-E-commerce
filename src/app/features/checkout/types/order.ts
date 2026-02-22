@@ -1,4 +1,4 @@
-import { CartItem } from "./cart";
+import { CartItem } from "../../cart/types/cart";
 
 export type orderStatus = 'Shipped';
 

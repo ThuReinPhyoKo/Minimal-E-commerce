@@ -1,10 +1,10 @@
 'use client'
 import Image from "next/image";
-import { Product } from "../../types/wholeProduct";
+import { Product } from "../types/wholeProduct";
 import { Heart, ShoppingCart, Star } from "lucide-react";
-import { Button } from "./button";
-import { useCartStore } from "@/app/store/cartStore";
-import { useWishlistStore } from "@/app/store/wishlistStore";
+import { Button } from "../../../components/ui/button";
+import { useCartStore } from "@/app/features/cart/store/cartStore";
+import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 
 interface ProductCardProps {
   product: Product;
@@ -21,7 +21,7 @@ export default function ProductCard({ product}: ProductCardProps) {
   return (
     <div className="w-64 border rounded-lg hover:shadow-xl group bg-white cursor-pointer transition-shadow duration-300">
       <div className="relative w-full h-64 overflow-hidden rounded-t-lg">
-        <Image className="bg-white object-contain group-hover:scale-110 transition-transform duration-500" src={product.thumbnail} alt={product.title} fill />
+        <Image className="bg-white object-contain group-hover:scale-110 transition-transform duration-500" src={product.thumbnail} alt={product.title} width={300} height={300} loading="eager" />
         <Button
           variant="transparent"
           size="sm"
@@ -37,7 +37,7 @@ export default function ProductCard({ product}: ProductCardProps) {
           size="sm"
           icon={<ShoppingCart size={18} className="text-gray-600" />}
           iconPosition="right"
-          onClick={() => addToCart(product)}
+          onClick={(e) => {e.stopPropagation(); addToCart(product)}}
           className="absolute bottom-2 right-2 transform opacity-0 translate-y-2 hover:scale-110 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-0 py-0 rounded-full"
         >
           <span className="font-inter font-semibold text-gray-700 text-sm">Add to cart</span>
