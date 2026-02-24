@@ -1,20 +1,42 @@
 import { SlidersHorizontal } from "lucide-react"
 
-export default function SortProducts() {
+type SortProductsProps = {
+  sortBy?: string | null;
+  order?: "asc" | "desc" | null;
+  onSortChange: (sortBy?: string | null, order?: "asc" | "desc" | null) => void;
+}
+
+export default function SortProducts({sortBy, order, onSortChange}: SortProductsProps) {
+
+  const current = sortBy && order ? `${sortBy}-${order}` : "default";
+
     return (
         <div className="w-60 mt-8 mb-3 mx-4 p-4 border rounded-lg bg-white font-inter">
             <div className="flex items-center mb-3 space-x-2">
                 <SlidersHorizontal className="text-gray-600" />
                 <h3 className="text-gray-600 text-lg">Sort By</h3>
             </div>
+
+            <label htmlFor="default" className="flex items-center p-2 cursor-pointer">
+              <input
+                id="default"
+                name="sort"
+                type="radio"
+                checked={ current === "default"}
+                onChange={() => onSortChange(null, null)}
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
+              />
+              <span className="ml-2 text-gray-900 text-sm">Default</span>
+            </label>
             
             <label htmlFor="sort-az" className="flex items-center p-2 cursor-pointer">
               <input
                 id="sort-az"
                 name="sort"
                 type="radio"
-                defaultChecked
-                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-400 checked:ring-1 checked:ring-gray-400 checked:ring-offset-2"
+                checked={ current === "title-asc"}
+                onChange={() => onSortChange("title", "asc")}
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
               />
               <span className="ml-2 text-gray-900 text-sm">A - Z</span>
             </label>
@@ -24,7 +46,9 @@ export default function SortProducts() {
                 id="sort-price-asc"
                 name="sort"
                 type="radio"
-                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-400"
+                checked={ current === "price-asc"}
+                onChange={() => onSortChange("price", "asc")}
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
               />
               <span className="ml-2 text-gray-900 text-sm">Price: Low to High</span>
             </label>
@@ -34,7 +58,9 @@ export default function SortProducts() {
                 id="sort-price-desc"
                 name="sort"
                 type="radio"
-                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-400"
+                checked={ current === "price-desc"}
+                onChange={() => onSortChange("price", "desc")}
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
               />
               <span className="ml-2 text-gray-900 text-sm">Price: High to Low</span>
             </label>
@@ -44,7 +70,9 @@ export default function SortProducts() {
                 id="sort-rating"
                 name="sort"
                 type="radio"
-                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-400"
+                checked={ current === "rating-desc"}
+                onChange={() => onSortChange("rating", "desc")}
+                className="appearance-none w-4 h-4 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
               />
               <span className="ml-2 text-gray-900 text-sm">Rating</span>
             </label>

@@ -12,12 +12,14 @@ type ProductsListProps = {
   selectedCategory ?: string;
   page : number;
   onPageChange : (page: number) => void;
+  sortBy?: string;
+  order?: "asc" | "desc";
 }
 
 
-export default function ProductsList({selectedCategory, page, onPageChange}: ProductsListProps) {
+export default function ProductsList({selectedCategory, page, onPageChange, sortBy, order}: ProductsListProps) {
 
-  const { data, isLoading, isFetching, isError } = useProducts(page, selectedCategory);
+  const { data, isLoading, isFetching, isError } = useProducts(page, selectedCategory, sortBy, order);
 
   const productRef = useRef<HTMLElement | null>(null);
   const isFirstRender = useRef(true);
@@ -67,7 +69,7 @@ export default function ProductsList({selectedCategory, page, onPageChange}: Pro
       )}
       <ThemeProvider theme={theme}>
         <Pagination 
-          count={data ? Math.ceil(data.total / 16) : 13} // Assuming 16 products per page
+          count={data ? Math.ceil(data.total / 16) : 1} // Assuming 16 products per page
           color="secondary"
           page={page}
           onChange={(_, value) => onPageChange(value)}

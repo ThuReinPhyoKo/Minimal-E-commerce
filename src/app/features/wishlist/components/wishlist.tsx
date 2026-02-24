@@ -1,11 +1,12 @@
 'use client'
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../../../components/ui/button";
-import { X, Heart, ShoppingCart, Trash2 } from "lucide-react";
+import { X, Heart, ShoppingCart, Trash2, HeartOff } from "lucide-react";
 import { discountPrice } from "../../products/components/productCard";
 import Image from "next/image";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
+import Link from "next/link";
 
 interface WishlistProps {
     isOpen: boolean;
@@ -91,6 +92,19 @@ export default function Wishlist({ isOpen, onClose }: WishlistProps) {
                                     </div>
                                 </div>
                             ))}
+
+                            { items.length === 0 && (
+                                <div className="flex flex-col items-center justify-center h-full text-gray-400">
+                                  <HeartOff className="w-10 h-12 mb-2" />
+                                  <p>Your wishlist is empty.</p>
+                                  <p className="text-xs text-center">Save products you love and find them here instantly.</p>
+                                  <Link href="/#browse-products">
+                                    <Button variant="transparent" size="sm" className="mt-2 text-sm underline" onClick={onClose}>
+                                      Browse Products
+                                    </Button>
+                                  </Link>
+                                </div>
+                            )}
                         </div>
                         
                         <div id="wishlist-btn" className="w-full"> 

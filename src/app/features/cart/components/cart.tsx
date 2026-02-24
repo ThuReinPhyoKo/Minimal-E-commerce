@@ -1,9 +1,10 @@
 "use client"
 import { Button } from "../../../components/ui/button";
-import { X, CirclePlus, CircleMinus, ShoppingCart } from "lucide-react";
+import { X, CirclePlus, CircleMinus, ShoppingCart, Handbag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { discountPrice } from "../../products/components/productCard";
 import Image from "next/image";
+import Link from "next/link";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
 
 interface CartProps {
@@ -111,8 +112,14 @@ export default function Cart( { isOpen, onClose, onCheckout }: CartProps) {
 
               { items.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full text-gray-400">
-                  <ShoppingCart className="w-10 h-12 mb-2" />
+                  <Handbag className="w-10 h-12 mb-2" />
                   <p>Your cart is empty.</p>
+                  <p className="text-xs text-center">Browse products and add items to your cart to check out.</p>
+                  <Link href="/#browse-products">
+                    <Button variant="transparent" size="sm" className="mt-2 text-sm underline" onClick={onClose}>
+                      Browse Products
+                    </Button>
+                  </Link>
                 </div>
               )}
             </div>

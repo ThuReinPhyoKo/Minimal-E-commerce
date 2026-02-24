@@ -27,7 +27,7 @@ export default function ProductCard({ product}: ProductCardProps) {
           size="sm"
           icon={<Heart size={18} className="text-gray-600" />}
           aria-label="Add to wishlist"
-          onClick={() => addToWishlist(product)}
+          onClick={(e) => {e.preventDefault(), addToWishlist(product)}}
           className="absolute top-2 right-2 hover:bg-yellow-400 hover:scale-110 group-hover:bg-gray-200 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 px-0 py-0 rounded-full"
         >
           <span className="sr-only">Add to wishlist</span>
@@ -37,7 +37,7 @@ export default function ProductCard({ product}: ProductCardProps) {
           size="sm"
           icon={<ShoppingCart size={18} className="text-gray-600" />}
           iconPosition="right"
-          onClick={(e) => {e.stopPropagation(); addToCart(product)}}
+          onClick={(e) => {e.preventDefault(), addToCart(product)}}
           className="absolute bottom-2 right-2 transform opacity-0 translate-y-2 hover:scale-110 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-0 py-0 rounded-full"
         >
           <span className="font-inter font-semibold text-gray-700 text-sm">Add to cart</span>
