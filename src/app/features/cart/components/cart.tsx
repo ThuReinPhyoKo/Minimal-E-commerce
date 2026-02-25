@@ -4,8 +4,8 @@ import { X, CirclePlus, CircleMinus, ShoppingCart, Handbag } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion";
 import { discountPrice } from "../../products/components/productCard";
 import Image from "next/image";
-import Link from "next/link";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
+import { useRouter, usePathname } from "next/navigation";
 
 interface CartProps {
   isOpen: boolean;
@@ -29,6 +29,23 @@ export default function Cart( { isOpen, onClose, onCheckout }: CartProps) {
     ) 
 
     const itemTotal = items.reduce((total, i) => total + i.quantity, 0);
+
+    const router = useRouter();
+    const pathname = usePathname();
+
+    function handleBrowseProducts() {
+      if(pathname === '/'){
+        onClose();
+      } else {
+        if(window.history.length > 1){
+          router.back();
+          onClose();
+        } else {
+          router.push('/');
+          onClose();
+        }
+      }
+    }
 
   return (
     <AnimatePresence>
@@ -115,11 +132,14 @@ export default function Cart( { isOpen, onClose, onCheckout }: CartProps) {
                   <Handbag className="w-10 h-12 mb-2" />
                   <p>Your cart is empty.</p>
                   <p className="text-xs text-center">Browse products and add items to your cart to check out.</p>
-                  <Link href="/#browse-products">
-                    <Button variant="transparent" size="sm" className="mt-2 text-sm underline" onClick={onClose}>
-                      Browse Products
-                    </Button>
-                  </Link>
+                  <Button 
+                    variant="transparent" 
+                    size="sm" 
+                    className="mt-2 text-sm underline" 
+                    onClick={handleBrowseProducts}
+                    >
+                    Browse Products
+                  </Button>
                 </div>
               )}
             </div>

@@ -6,7 +6,7 @@ import { discountPrice } from "../../products/components/productCard";
 import Image from "next/image";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
-import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 
 interface WishlistProps {
     isOpen: boolean;
@@ -20,6 +20,23 @@ export default function Wishlist({ isOpen, onClose }: WishlistProps) {
     const clearWishlist = useWishlistStore(state => state.clearWishlist);
     const addAllToCart = useWishlistStore(state => state.addAllToCart)
     const addToCart = useCartStore(state => state.addToCart)
+
+    const router = useRouter();
+    const pathname = usePathname();
+
+    function handleBrowseProducts() {
+      if(pathname === '/'){
+        onClose();
+      } else {
+        if(window.history.length > 1){
+          router.back();
+          onClose();
+        } else {
+          router.push('/');
+          onClose();
+        }
+      }
+    }
     
     return (
         <AnimatePresence>
@@ -98,11 +115,13 @@ export default function Wishlist({ isOpen, onClose }: WishlistProps) {
                                   <HeartOff className="w-10 h-12 mb-2" />
                                   <p>Your wishlist is empty.</p>
                                   <p className="text-xs text-center">Save products you love and find them here instantly.</p>
-                                  <Link href="/#browse-products">
-                                    <Button variant="transparent" size="sm" className="mt-2 text-sm underline" onClick={onClose}>
+                                    <Button 
+                                        variant="transparent" 
+                                        size="sm" 
+                                        className="mt-2 text-sm underline" 
+                                        onClick={handleBrowseProducts}>
                                       Browse Products
                                     </Button>
-                                  </Link>
                                 </div>
                             )}
                         </div>
