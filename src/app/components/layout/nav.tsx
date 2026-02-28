@@ -9,9 +9,6 @@ import { useSearchSuggestions } from "@/app/features/products/api/getSearchSugge
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
-import { connection } from "next/server";
-
-
 
 interface NavProps {
     onCartOpen?: () => void;
@@ -19,8 +16,7 @@ interface NavProps {
     onYourOrderOpen?: () => void;
 }
 
-export default async function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: NavProps ) {
-    await connection();
+export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: NavProps ) {
     
     const [ query, setQuery ] = useState("");
     

@@ -7,8 +7,11 @@ import YourOrder from "../features/checkout/components/yourOrder";
 import Footer from "../components/layout/footer";
 import Checkout from "../features/checkout/components/checkout";
 import useLockBodyScroll from "../hooks/useLockBodyScroll";
+import { connection } from "next/server";
 
-export default function ClientShell({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function ClientShell({ children }: Readonly<{ children: React.ReactNode }>) {
+    await connection();
+
   const [ isCartOpen, setIsCartOpen ] = React.useState(false);
   const [ isWishlistOpen, setIsWishlistOpen ] = React.useState(false);
   const [ isYourOrderOpen, setIsYourOrderOpen ] = React.useState(false);
