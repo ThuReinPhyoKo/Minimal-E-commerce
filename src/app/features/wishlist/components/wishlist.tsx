@@ -25,10 +25,10 @@ export default function Wishlist({ isOpen, onClose }: WishlistProps) {
     const pathname = usePathname();
 
     function handleBrowseProducts() {
-      if(pathname === '/'){
+      if(pathname === '/'){ //if already on homepage, just close
         onClose();
-      } else {
-        if(window.history.length > 1){
+      } else { //if not on homepage
+        if(window.history.length > 2){
           router.back();
           onClose();
         } else {

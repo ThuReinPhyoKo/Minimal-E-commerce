@@ -7,6 +7,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../../theme/mui-theme";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchProducts } from "../api/getBySearch";
 
 type ProductsListProps = {
   selectedCategory ?: string;
@@ -14,12 +15,19 @@ type ProductsListProps = {
   onPageChange : (page: number) => void;
   sortBy?: string;
   order?: "asc" | "desc";
+  query?: string;
 }
 
 
-export default function ProductsList({selectedCategory, page, onPageChange, sortBy, order}: ProductsListProps) {
+export default function ProductsList({selectedCategory, query, page, onPageChange, sortBy, order}: ProductsListProps) {
 
-  const { data, isLoading, isFetching, isError } = useProducts(page, selectedCategory, sortBy, order);
+  const { 
+    data, 
+    isLoading, 
+    isFetching, 
+    isError } = query 
+              ? useSearchProducts(query, page, sortBy, order)
+              : useProducts(page, selectedCategory, sortBy, order);
 
   const productRef = useRef<HTMLElement | null>(null);
   const isFirstRender = useRef(true);
@@ -31,7 +39,7 @@ export default function ProductsList({selectedCategory, page, onPageChange, sort
     }
 
     productRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [ page, selectedCategory]);
+  }, [ page, selectedCategory, query]);
 
   return (
     <section ref={productRef} className="my-8 flex flex-col items-center justify-between scroll-mt-20 w-full">

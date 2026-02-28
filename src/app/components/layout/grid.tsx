@@ -13,12 +13,13 @@ export default function Grid() {
     const page = Number(searchParams.get("page") || 1);
     const sortBy = searchParams.get("sortBy") || undefined;
     const order = searchParams.get("order") as "asc" | "desc" | undefined;
+    const query = searchParams.get("query") || undefined;
 
     function updateParams(
       newCategory?: string, 
       newPage?: number, 
       newSortBy?: string | null, 
-      newOrder?: "asc" | "desc" | null
+      newOrder?: "asc" | "desc" | null,
     ) {
       const params = new URLSearchParams(searchParams.toString());
 
@@ -26,6 +27,7 @@ export default function Grid() {
         params.delete("category");     // remove category
         params.set("page", "1");       // reset page
       } else {
+        params.delete("query");
         params.set("category", newCategory);
         params.set("page", "1");
       }
@@ -67,6 +69,7 @@ export default function Grid() {
                 page={page}
                 onPageChange={(p) => updateParams(category, p)}
                 selectedCategory={category}
+                query={query}
             />
         </div>
     );

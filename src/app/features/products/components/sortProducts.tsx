@@ -38,7 +38,7 @@ export default function SortProducts({sortBy, order, onSortChange}: SortProducts
           <ChevronDown className="absolute w-4 h-4 right-1 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-900" />
         </div>
 
-        <div className="w-60 mt-8 mb-3 mx-4 p-4 border rounded-lg bg-white font-inter hidden md:block">
+        <div className="w-60 mt-8 mb-3 mx-4 p-4 border border-gray-200 rounded-lg bg-white font-inter hidden md:block">
           <div className="flex items-center mb-3 space-x-2">
               <SlidersHorizontal className="text-gray-600" />
               <h3 className="text-gray-600 text-lg">Sort By</h3>

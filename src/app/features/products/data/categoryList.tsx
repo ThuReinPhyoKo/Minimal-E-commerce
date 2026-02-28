@@ -19,7 +19,7 @@ export default function CategoryList({ selectedCategory, onSelectedCategory }: C
   const { data, isLoading, isError } = useCategories();
 
   return (
-    <div className="w-60 h-[520px] mx-4 p-4 border rounded-lg bg-white font-inter">
+    <div className="w-60 h-[520px] mx-4 p-4 border border-gray-200 rounded-lg bg-white font-inter">
       <div className="flex items-center mb-3 space-x-2">
         <Layers className="text-gray-600" />
         <h3 className="text-gray-600 text-lg">Categories</h3>

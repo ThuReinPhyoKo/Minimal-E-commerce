@@ -9,6 +9,8 @@ type AppAutocompleteProps = Omit<
 >;
 
 export default function AppAutocomplete(props: AppAutocompleteProps) {
+
+
   return (
     <div
       id="search-bar"
@@ -18,17 +20,43 @@ export default function AppAutocomplete(props: AppAutocompleteProps) {
 
       <Autocomplete
         {...props}
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "#424242", // dark background for dropdown
+              color: "#eeeeee", // light text color
+            }
+          },
+          listbox: {
+            sx: {
+              "& .MuiAutocomplete-option": {
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.2) ", // hover color for options
+                }
+              },
+              "& .MuiAutocomplete-option.Mui-focused": {
+                backgroundColor: "rgba(255, 255, 255, 0.2) ", // focused option color
+              },
+              "&::-webkit-scrollbar": {
+                width: "8px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "#757575",
+                borderRadius: "4px",
+              }
+            }
+          }
+        }}
         sx={{
           flex: 1,
           "& .MuiInputBase-root": {
             height: "48px", // match h-12
             background: "transparent",
-            color: "#d1d5db", // text-gray-300
+            color: "#eeeeee",
             paddingLeft: "8px",
           },
-          "& .MuiAutocomplete-listbox": {
-            backgroundColor: "#1D4ED8", // dropdown background blue
-            color: "#fff",
+          "& .MuiAutocomplete-clearIndicator": {
+            color: "#eeeeee",
           },
           "& fieldset": {
             border: "none", // remove MUI’s default border

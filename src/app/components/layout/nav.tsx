@@ -5,6 +5,10 @@ import { Button } from "../ui/button";
 import AppAutocomplete from "../../features/products/components/search";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
+import { useSearchSuggestions } from "@/app/features/products/api/getSearchSuggestions";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useDebounce } from "use-debounce";
 
 interface NavProps {
     onCartOpen?: () => void;
@@ -12,11 +16,38 @@ interface NavProps {
     onYourOrderOpen?: () => void;
 }
 
-export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen }: NavProps ) {
+export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: NavProps ) {
+    const [ query, setQuery ] = useState("");
+    
     const CartItems = useCartStore(state => state.items);
     const CartItemsTotal = CartItems.reduce((total, i) => total + i.quantity, 0)
     const WishlistItems = useWishlistStore(state => state.items);
     const WishlistItemsTotal = WishlistItems.length;
+
+    const [ debouncedQuery ] = useDebounce(query, 300);
+    const { data } = useSearchSuggestions(debouncedQuery); 
+
+    const options = data ? data : ["laptop", "smartphone", "fragrance", "gucci", "chanel", "apple"];
+
+    console.log("search options", options)
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    
+
+    function updateQuery(value: string) {
+        const params = new URLSearchParams(searchParams.toString());
+
+        if(!value) {
+            params.delete("query");
+        } else {
+            params.set("query", value);
+        }
+        params.delete("category");
+        params.set("page", "1");
+
+        router.push(`/?${params.toString()}`, { scroll: false });
+    }
 
     return (
         <nav className="w-full p-1 flex justify-center items-center fixed top-0 z-10">
@@ -37,8 +68,12 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen }: Na
                     </Tooltip>
                 </div>
                 <AppAutocomplete
-                    options={["Shirts", "Pants", "Shoes"]}
-                    freeSolo
+                   options={options}
+                   inputValue={query}
+                   onInputChange={(e, value) => setQuery(value)}
+                   onChange={(e, value) => typeof value === "string" &&updateQuery(value || "")}
+                   onKeyDown={e => e.key === "Enter" && updateQuery(query)}
+                   freeSolo
                 />
                 <div id="wishlist-and-cart-and-order" className="bg-black/40 backdrop-blur-md border border-white/10 w-48 h-12 rounded-full flex items-center justify-center">
                     <Tooltip title="Wishlist" arrow>

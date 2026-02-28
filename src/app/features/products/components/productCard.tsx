@@ -19,7 +19,7 @@ export default function ProductCard({ product}: ProductCardProps) {
   const addToWishlist = useWishlistStore((state) => state.addToWishlist)
 
   return (
-    <div className="w-64 border rounded-lg hover:shadow-xl group bg-white cursor-pointer transition-shadow duration-300">
+    <div className="w-64 border border-gray-200 rounded-lg hover:shadow-xl group bg-white cursor-pointer transition-shadow duration-300">
       <div className="relative w-full h-64 overflow-hidden rounded-t-lg">
         <Image className="bg-white object-contain group-hover:scale-110 transition-transform duration-500" src={product.thumbnail} alt={product.title} width={300} height={300} loading="eager" />
         <Button
@@ -47,7 +47,7 @@ export default function ProductCard({ product}: ProductCardProps) {
       <h2 className="font-medium leading-tight font-inter px-2 py-1.5 text-gray-700 group-hover:text-yellow-500">{product.title}</h2>
       <div className="flex items-center px-2 mb-1">
         {[...Array(5)].map((_, i) => (
-          <Star key={i} className={`h-4 w-4 ${i < product.rating ? "fill-yellow-500" : "fill-gray-400"}`} />
+          <Star key={i} className={`h-4 w-4 stroke-1 stroke-gray-200 ${i < product.rating ? "fill-yellow-500" : "fill-gray-400"}`} />
         ))}
       </div>
 

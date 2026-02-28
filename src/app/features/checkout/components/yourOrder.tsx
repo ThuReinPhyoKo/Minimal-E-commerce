@@ -49,7 +49,7 @@ export default function YourOrder({ isOpen, onClose }: YourOrderProps) {
                                 <p className="text-gray-500 text-center mt-10">You have no orders yet.</p>
                             ) : (
                                 orders.slice().reverse().map(order => (
-                                    <div key={order.id} className="border rounded p-4 mb-4">
+                                    <div key={order.id} className="border border-gray-200 rounded p-4 mb-4">
                                         <h2 className="text-gray-700 font-semibold mb-2">Order ID: {order.id}</h2>
                                         <p className="text-gray-500 text-sm mb-2">Status: <span className="text-green-600">{order.status}</span></p>
                                         <p className="text-gray-500 text-sm mb-2">Created At: {new Date(order.createdAt).toLocaleString()}</p>
