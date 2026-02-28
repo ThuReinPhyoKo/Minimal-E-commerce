@@ -9,6 +9,9 @@ import { useSearchSuggestions } from "@/app/features/products/api/getSearchSugge
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
+import { connection } from "next/server";
+
+
 
 interface NavProps {
     onCartOpen?: () => void;
@@ -16,7 +19,9 @@ interface NavProps {
     onYourOrderOpen?: () => void;
 }
 
-export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: NavProps ) {
+export default async function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: NavProps ) {
+    await connection();
+    
     const [ query, setQuery ] = useState("");
     
     const CartItems = useCartStore(state => state.items);
@@ -32,8 +37,6 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: Nav
     console.log("search options", options)
     const router = useRouter();
     const searchParams = useSearchParams();
-
-    
 
     function updateQuery(value: string) {
         const params = new URLSearchParams(searchParams.toString());
