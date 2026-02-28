@@ -7,10 +7,9 @@ import YourOrder from "../features/checkout/components/yourOrder";
 import Footer from "../components/layout/footer";
 import Checkout from "../features/checkout/components/checkout";
 import useLockBodyScroll from "../hooks/useLockBodyScroll";
-import { connection } from "next/server";
+import { Suspense } from "react";
 
 export default async function ClientShell({ children }: Readonly<{ children: React.ReactNode }>) {
-    await connection();
 
   const [ isCartOpen, setIsCartOpen ] = React.useState(false);
   const [ isWishlistOpen, setIsWishlistOpen ] = React.useState(false);
@@ -23,11 +22,13 @@ export default async function ClientShell({ children }: Readonly<{ children: Rea
     
   return (
     <>
-        <Nav
-            onCartOpen={ () => setIsCartOpen(true)}
-            onWishlistOpen={() => setIsWishlistOpen(true)}
-            onYourOrderOpen={() => setIsYourOrderOpen(true)}
-        />
+        <Suspense fallback={null}>
+            <Nav
+                onCartOpen={ () => setIsCartOpen(true)}
+                onWishlistOpen={() => setIsWishlistOpen(true)}
+                onYourOrderOpen={() => setIsYourOrderOpen(true)}
+            />
+        </Suspense>
         <Cart
             isOpen={isCartOpen}
             onClose={() => setIsCartOpen(false)}
