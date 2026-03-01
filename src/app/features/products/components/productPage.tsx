@@ -17,7 +17,6 @@ export default function ProductPage() {
     const addToWishlist = useWishlistStore((state) => state.addToWishlist);
     const params = useParams();
     const id = params?.id;
-    console.log("How params look like: ", params);
     const { data, isLoading, isError } = useSingleProduct(id? String(id) : "");
 
     return (

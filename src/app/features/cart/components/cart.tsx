@@ -37,14 +37,13 @@ export default function Cart( { isOpen, onClose, onCheckout }: CartProps) {
       if(pathname === '/'){
         onClose();
       } else {
-        if(window.history.length > 1){
+        if(window.history.length > 2){
           router.back();
-          onClose();
         } else {
           router.push('/');
-          onClose();
         }
       }
+      onClose();
     }
 
   return (

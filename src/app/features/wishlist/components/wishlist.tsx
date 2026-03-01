@@ -30,12 +30,11 @@ export default function Wishlist({ isOpen, onClose }: WishlistProps) {
       } else { //if not on homepage
         if(window.history.length > 2){
           router.back();
-          onClose();
         } else {
           router.push('/');
-          onClose();
         }
       }
+      onClose();
     }
     
     return (

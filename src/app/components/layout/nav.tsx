@@ -30,7 +30,6 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: Nav
 
     const options = data ? data : ["laptop", "smartphone", "fragrance", "gucci", "chanel", "apple"];
 
-    console.log("search options", options)
     const router = useRouter();
     const searchParams = useSearchParams();
 
