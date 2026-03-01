@@ -1,7 +1,7 @@
 'use client'
 import { useParams } from "next/navigation";
 import { useSingleProduct } from "@/app/features/products/api/getSingleProduct";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "../../../components/ui/button";
 import { discountPrice } from "./productCard";
@@ -18,6 +18,7 @@ export default function ProductPage() {
     const params = useParams();
     const id = params?.id;
     const { data, isLoading, isError } = useSingleProduct(id? String(id) : "");
+
 
     return (
         <div className={`w-full ${ isLoading || isError ? "h-screen" : "" } flex flex-col items-center justify-center bg-white text-black`}>

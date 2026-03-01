@@ -33,12 +33,11 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-    productRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if ( isFirstRender.current && !query ) {
+        isFirstRender.current = false;
+        return;
+      } 
+      productRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [ page, selectedCategory, query]);
 
   return (
