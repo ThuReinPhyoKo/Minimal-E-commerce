@@ -9,7 +9,7 @@ import Checkout from "../features/checkout/components/checkout";
 import useLockBodyScroll from "../hooks/useLockBodyScroll";
 import { Suspense } from "react";
 
-export default async function ClientShell({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function ClientShell({ children }: Readonly<{ children: React.ReactNode }>) {
 
   const [ isCartOpen, setIsCartOpen ] = React.useState(false);
   const [ isWishlistOpen, setIsWishlistOpen ] = React.useState(false);
