@@ -8,6 +8,7 @@ import Footer from "../components/layout/footer";
 import Checkout from "../features/checkout/components/checkout";
 import useLockBodyScroll from "../hooks/useLockBodyScroll";
 import { Suspense } from "react";
+import AuthModal from "../components/auth/components/AuthModal";
 
 export default function ClientShell({ children }: Readonly<{ children: React.ReactNode }>) {
 
@@ -15,8 +16,10 @@ export default function ClientShell({ children }: Readonly<{ children: React.Rea
   const [ isWishlistOpen, setIsWishlistOpen ] = React.useState(false);
   const [ isYourOrderOpen, setIsYourOrderOpen ] = React.useState(false);
   const [ isCheckoutOpen, setIsCheckoutOpen ] = React.useState(false);
+  const [ isAuthOpen, setIsAuthOpen ] = React.useState(false);
 
-  const anyModalOpen = isCartOpen || isWishlistOpen || isYourOrderOpen || isCheckoutOpen;
+  const anyModalOpen = isCartOpen || isWishlistOpen || isYourOrderOpen || isCheckoutOpen || isAuthOpen;
+
 
   useLockBodyScroll(anyModalOpen);
     
@@ -27,8 +30,13 @@ export default function ClientShell({ children }: Readonly<{ children: React.Rea
                 onCartOpen={ () => setIsCartOpen(true)}
                 onWishlistOpen={() => setIsWishlistOpen(true)}
                 onYourOrderOpen={() => setIsYourOrderOpen(true)}
+                onAuthOpen={() => setIsAuthOpen(true)}
             />
         </Suspense>
+        <AuthModal 
+            isOpen={isAuthOpen}
+            onClose={() => setIsAuthOpen(false)}
+        />
         <Cart
             isOpen={isCartOpen}
             onClose={() => setIsCartOpen(false)}

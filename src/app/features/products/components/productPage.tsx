@@ -10,11 +10,13 @@ import { Star, Mail, Heart, ShoppingCart } from "lucide-react";
 import { formatCategoryName } from "@/app/features/products/data/categoryList";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { dateFormat } from "@/app/utils/dateFormat";
+import { useAuthStore } from "@/app/components/auth/store/authStore";
 
 export default function ProductPage() {
     const [ selectedImage, setSelectedImage ] = useState<string | null>(null);
     const addToCart = useCartStore((state) => state.addToCart);
     const addToWishlist = useWishlistStore((state) => state.addToWishlist);
+    const { isAuthenticated } = useAuthStore();
     const params = useParams();
     const id = params?.id;
     const { data, isLoading, isError } = useSingleProduct(id? String(id) : "");
@@ -79,8 +81,33 @@ export default function ProductPage() {
                         <p className="text-gray-800"><span className="text-gray-500">Warranty:</span> {data.warrantyInformation}</p>
                         {/* <p className="text-gray-500">Stock: <span className="text-gray-800">{data.stock}</span><span className="text-green-600 font-medium"> Available</span></p> */}
                         <div className="flex gap-5">
-                            <Button variant="main" size="md" icon={<ShoppingCart className="h-4 w-4" />} onClick={() => addToCart(data)}>Add to Cart</Button>
-                            <Button variant="gray" size="md" icon={<Heart className="h-4 w-4" />} onClick={() => addToWishlist(data)}>Add to Wishlist</Button>
+                            <Button 
+                                variant="main" 
+                                size="md" icon={<ShoppingCart className="h-4 w-4" />} 
+                                onClick={() => {
+                                  if(!isAuthenticated) {
+                                    alert("Please log in to add items to your cart.");
+                                    return;
+                                  }
+                                  addToCart(data);
+                                }}
+                                >
+                                    Add to Cart
+                                </Button>
+                            <Button 
+                                variant="gray" 
+                                size="md" 
+                                icon={<Heart className="h-4 w-4" />} 
+                                onClick={() => {
+                                    if(!isAuthenticated) {
+                                      alert("Please log in to add items to your wishlist.");
+                                      return;
+                                    }
+                                    addToWishlist(data);
+                                }}
+                                >
+                                    Add to Wishlist
+                                </Button>
                         </div>
                         <div id="Reviews" className="border border-black/20 my-3 rounded-2xl p-4 w-full">
                             <h3 className="text-lg font-semibold">Customer Reviews</h3>

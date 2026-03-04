@@ -98,7 +98,7 @@ export default function Checkout({isOpen, onClose, onYourOrderOpen}: CheckoutPro
                                     variant="transparent"
                                     size="xs"
                                     aria-label="Close checkout"
-                                    icon={<X className="text-gray-400 w-5 hover:text-gray-950"/>}
+                                    icon={<X className="text-gray-500 w-4 hover:text-gray-950"/>}
                                     onClick={onClose}
                                     className="absolute top-2 right-3"
                                 >

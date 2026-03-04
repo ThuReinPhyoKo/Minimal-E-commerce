@@ -9,15 +9,19 @@ import { useSearchSuggestions } from "@/app/features/products/api/getSearchSugge
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
+import { useAuthStore } from "../auth/store/authStore";
 
 interface NavProps {
-    onCartOpen?: () => void;
-    onWishlistOpen?: () => void;
-    onYourOrderOpen?: () => void;
+    onCartOpen: () => void;
+    onWishlistOpen: () => void;
+    onYourOrderOpen: () => void;
+    onAuthOpen?: () => void;
 }
 
-export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: NavProps ) {
+export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAuthOpen }: NavProps ) {
     
+    const { isAuthenticated } = useAuthStore();
+
     const [ query, setQuery ] = useState("");
     
     const CartItems = useCartStore(state => state.items);
@@ -59,6 +63,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: Nav
                             size="sm"
                             icon={<User className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Login"
+                            onClick={onAuthOpen}
                             className="group hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Login</span>
@@ -80,11 +85,18 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: Nav
                             size="sm"
                             icon={<Heart className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Wishlist"
-                            onClick={onWishlistOpen}
+                            // disabled={!isAuthenticated}
+                            onClick={() => {
+                                if(!isAuthenticated) {
+                                    alert("Please log in to access your wishlist.") 
+                                    return;
+                                }
+                                onWishlistOpen();
+                            }}
                             className="group relative hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Wishlist</span>
-                            <span className="absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full">{WishlistItemsTotal}</span> {/* You can add wishlist count here if needed */}
+                            <span className={`${isAuthenticated ? "" : "hidden"} absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full`}>{WishlistItemsTotal}</span> {/* You can add wishlist count here if needed */}
                         </Button>
                     </Tooltip>
                     <div id="divider" className="w-[1px] h-5 bg-gray-400 mx-2"></div>
@@ -94,11 +106,17 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: Nav
                             size="sm"
                             icon={<ShoppingCart className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Open cart"
-                            onClick={ onCartOpen }
+                            onClick={() => {
+                                if(!isAuthenticated) {
+                                    alert("Please log in to access your cart.")
+                                    return;
+                                }
+                                onCartOpen();
+                            } }
                             className="group relative hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Cart</span>
-                            <span className="absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full">{CartItemsTotal}</span> {/* You can add cart count here if needed, {cartItems.reduce((total, item) => total + item.quantity, 0)} */}
+                            <span className={`${isAuthenticated ? "" : "hidden"} absolute w-4 text-xs top-0.5 -right-0.5 bg-[#fff700] rounded-full`}>{CartItemsTotal}</span>
                         </Button>
                     </Tooltip>
                     <div id="divider" className="w-[1px] h-5 bg-gray-400 mx-2"></div>
@@ -108,7 +126,13 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen}: Nav
                             size="sm"
                             icon={<Truck className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
                             aria-label="Your Orders"
-                            onClick={ onYourOrderOpen }
+                            onClick={() => {
+                                if(!isAuthenticated) {
+                                    alert("Please log in to access your orders.")
+                                    return;
+                                }
+                                onYourOrderOpen();
+                            } }
                             className="group hover:bg-gray-400 px-0 py-0"
                         >
                             <span className="sr-only">Your Orders</span>

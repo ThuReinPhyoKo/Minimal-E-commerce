@@ -5,6 +5,7 @@ import { Heart, ShoppingCart, Star } from "lucide-react";
 import { Button } from "../../../components/ui/button";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
+import { useAuthStore } from "@/app/components/auth/store/authStore";
 
 interface ProductCardProps {
   product: Product;
@@ -17,6 +18,7 @@ export const discountPrice = (price: number, discountPercentage: number) => {
 export default function ProductCard({ product}: ProductCardProps) {
   const addToCart = useCartStore((state) => state.addToCart);
   const addToWishlist = useWishlistStore((state) => state.addToWishlist)
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <div className="w-64 border border-gray-200 rounded-lg hover:shadow-xl group bg-white cursor-pointer transition-shadow duration-300">
@@ -27,7 +29,14 @@ export default function ProductCard({ product}: ProductCardProps) {
           size="sm"
           icon={<Heart size={18} className="text-gray-600" />}
           aria-label="Add to wishlist"
-          onClick={(e) => {e.preventDefault(), addToWishlist(product)}}
+          onClick={(e) => {
+            e.preventDefault();
+            if(!isAuthenticated) {
+              alert("Please log in to add items to your wishlist.");
+              return;
+            }
+            addToWishlist(product);
+          }}
           className="absolute top-2 right-2 hover:bg-yellow-400 hover:scale-110 group-hover:bg-gray-200 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 px-0 py-0 rounded-full"
         >
           <span className="sr-only">Add to wishlist</span>
@@ -37,7 +46,14 @@ export default function ProductCard({ product}: ProductCardProps) {
           size="sm"
           icon={<ShoppingCart size={18} className="text-gray-600" />}
           iconPosition="right"
-          onClick={(e) => {e.preventDefault(), addToCart(product)}}
+          onClick={(e) => {
+            e.preventDefault();
+            if(!isAuthenticated) {
+              alert("Please log in to add items to your cart.");
+              return;
+            }
+            addToCart(product);
+          }}
           className="absolute bottom-2 right-2 transform opacity-0 translate-y-2 hover:scale-110 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-0 py-0 rounded-full"
         >
           <span className="font-inter font-semibold text-gray-700 text-sm">Add to cart</span>
