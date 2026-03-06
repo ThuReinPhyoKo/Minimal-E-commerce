@@ -11,6 +11,7 @@ import { formatCategoryName } from "@/app/features/products/data/categoryList";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { dateFormat } from "@/app/utils/dateFormat";
 import { useAuthStore } from "@/app/components/auth/store/authStore";
+import { toast } from "sonner";
 
 export default function ProductPage() {
     const [ selectedImage, setSelectedImage ] = useState<string | null>(null);
@@ -86,10 +87,11 @@ export default function ProductPage() {
                                 size="md" icon={<ShoppingCart className="h-4 w-4" />} 
                                 onClick={() => {
                                   if(!isAuthenticated) {
-                                    alert("Please log in to add items to your cart.");
+                                    toast.info("Please log in to add items to your cart.");
                                     return;
                                   }
                                   addToCart(data);
+                                  toast.success("Item added to cart.")
                                 }}
                                 >
                                     Add to Cart
@@ -100,10 +102,11 @@ export default function ProductPage() {
                                 icon={<Heart className="h-4 w-4" />} 
                                 onClick={() => {
                                     if(!isAuthenticated) {
-                                      alert("Please log in to add items to your wishlist.");
+                                      toast.info("Please log in to add items to your wishlist.");
                                       return;
                                     }
                                     addToWishlist(data);
+                                    toast.success("Item added to wishlist.")
                                 }}
                                 >
                                     Add to Wishlist

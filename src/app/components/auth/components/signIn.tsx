@@ -3,25 +3,34 @@ import { Button } from "@/app/components/ui/button";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { UserDetails } from "../user/userDetail";
+import { Dispatch, SetStateAction } from "react"
 
-export default function SignInForm() {
+type LoginForm = {
+    email: string,
+    password: string,
+    check: boolean,
+    role: string,
+}
+
+type SignInProps = {
+    form: LoginForm;
+    setForm: Dispatch<SetStateAction<LoginForm>>
+}
+
+
+export default function SignInForm({form, setForm} : SignInProps) {
     const [ showPassword, setShowPassword ] = useState(false);
-    const [ formData, setFormData ] = useState({
-        email: '',
-        password: '',
-        check: false,
-        role: '',
-    })
 
     const fillDemoData = () => {
-        setFormData({
-            email: UserDetails.email,
-            password: UserDetails.password,
-            check: UserDetails.check,
-            role: UserDetails.role,
-        })
-
-    }
+            setForm({
+                email: UserDetails.email,
+                password: UserDetails.password,
+                check: UserDetails.check,
+                role: UserDetails.role,
+            })
+    
+        }
+    
 
     return (
         <>
@@ -34,8 +43,8 @@ export default function SignInForm() {
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
                         id='email'
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        value={form.email}
+                        onChange={(e) => setForm((prev) => ({...prev, email: e.target.value}))}
                         aria-label="Email Address"
                         placeholder="Enter your email"
                         required
@@ -50,8 +59,8 @@ export default function SignInForm() {
                     <input
                         id='password'
                         type={showPassword ? "text" : "password"}
-                        value={formData.password}
-                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                        value={form.password}
+                        onChange={(e) => setForm((prev) => ({...prev, password: e.target.value}))}
                         aria-label="Password"
                         placeholder="Enter your password"
                         required
@@ -72,8 +81,9 @@ export default function SignInForm() {
                             name="role"
                             type="radio"
                             value="customer"
-                            checked={formData.role === 'customer'}
-                            onChange={() => setFormData({ ...formData, role: 'customer' })}
+                            checked={form.role === 'customer'}
+                            onChange={() => setForm((prev) => ({...prev, role: 'customer'}))}
+                            required
                             className="appearance-none w-3 h-3 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
                           />
                           <span className="ml-2 text-gray-500 text-sm">Customer</span>
@@ -84,8 +94,9 @@ export default function SignInForm() {
                             name="role"
                             type="radio"
                             value="seller"
-                            checked={formData.role === 'seller'}
-                            onChange={() => setFormData({ ...formData, role: 'seller' })}
+                            checked={form.role === 'seller'}
+                            onChange={() => setForm((prev) => ({ ...prev, role: 'seller' }))}
+                            required
                             className="appearance-none w-3 h-3 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
                           />
                           <span className="ml-2 text-gray-500 text-sm">Seller</span>
@@ -98,8 +109,8 @@ export default function SignInForm() {
                         <input 
                             id="remember-me" 
                             type="checkbox" 
-                            checked={formData.check} 
-                            onChange={(e) => setFormData({...formData, check: e.target.checked})} 
+                            checked={form.check} 
+                            onChange={(e) => setForm((prev) => ({...prev, check: e.target.checked}))} 
                             className="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500" 
                         />
                         <label htmlFor="remember-me" className="text-sm text-gray-500 font-medium">Remember me</label>

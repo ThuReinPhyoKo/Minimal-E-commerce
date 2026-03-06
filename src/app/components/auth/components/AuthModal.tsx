@@ -7,11 +7,18 @@ import SignInForm from "./signIn";
 import SignUpForm from "./SignUp";
 import { useAuthStore } from "../store/authStore";
 import { UserDetails } from "../user/userDetail";
-import { div } from "framer-motion/client";
 
 interface AuthModalProps {
     isOpen: boolean;
-    onClose: () => void;
+    onClose?: () => void;
+}
+
+type LoginForm = {
+    name?: string,
+    email: string,
+    password: string,
+    check: boolean,
+    role: string,
 }
 
 export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
@@ -23,6 +30,18 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isSuccess, setIsSuccess ] = useState(false);
 
+    const [ formData, setFormData ] = useState<LoginForm>({
+                name: '',
+                email: '',
+                password: '',
+                check: false,
+                role: '',
+            })
+    const isValid = isSignIn ? 
+        formData.email.trim() && formData.password.trim()
+        : formData.name?.trim() && formData.email.trim() && formData.password.trim()
+
+
     const handleDemoLogin = () => {
         const { id, name, email, password, profile, check, role } = UserDetails;
         login({
@@ -31,13 +50,13 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
         setIsLoading(true);
 
         setTimeout(() => {
-            setIsSuccess(true);
+            setIsSuccess(true)
             setTimeout(() => {
-                setIsLoading(false);
-                setIsSuccess(false);
-                onClose();
-            }, 800)
-        }, 1200)
+                setIsLoading(false)
+                setIsSuccess(false)
+                onClose?.();
+            }, 1000)
+        }, 2000)
     }
 
     const signInToggle = () => {
@@ -54,14 +73,14 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
         <AnimatePresence>
             {isOpen && (
                 <div className="fixed inset-0 z-20 flex justify-end">
-                    <motion.div id="overlay" className={`absolute inset-0 bg-black/60 ${isLoading ? "z-30": ""}`} onClick={ onClose }
+                    <motion.div id="overlay" className="absolute inset-0 bg-black/60" onClick={ onClose }
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
                     ></motion.div>
 
-                    <motion.div id="auth-modal" className="w-2/6 p-4 bg-white border border-gray-700 rounded-xl font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                    <motion.div id="auth-modal" className="w-2/6 p-4 bg-white rounded-xl font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{scale: 0.8, opacity: 0}}
@@ -102,16 +121,17 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
                         </div>
 
                         {/* Sign In Content */}
-                        {isSignIn && <SignInForm />}
+                        {isSignIn && <SignInForm form={formData} setForm={setFormData} />}
                         
                         {/* Sign Up Content */}
-                        {isSignUp && <SignUpForm />}
+                        {isSignUp && <SignUpForm form={formData} setForm={setFormData} />}
 
                         {/* Sign In or Sign Up buttons */}
                         <Button
                             variant="main"
                             size="sm"
                             onClick={handleDemoLogin}
+                            disabled={!isValid}
                             className="w-full mt-5 font-medium"
                         >
                             {isSignIn ? "Sign In as Demo User" : "Sign Up as Demo User"}
@@ -142,19 +162,18 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
                                 Facebook
                             </Button>
                         </div>
+
+                        {/* Loading & Success Modal */}
+                        {isLoading && <span className="loading fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40"></span>}
+                        {isSuccess && (
+                            <div className="absolute bg-black/60 rounded-xl w-full h-full inset-0 flex items-center justify-center font-inter z-40">
+                                <div className="bg-white w-2xs h-40 p-6 rounded-lg shadow-lg text-center">
+                                    <p className="text-gray-800 text-xl uppercase font-medium my-2">{ isSignIn ? "Welcome back!" : "Welcome!"}</p>
+                                    <p className="text-gray-800 text-lg font-medium">Hello, {UserDetails.name}</p>
+                                </div>
+                            </div> 
+                        )}
                     </motion.div>
-
-                    {/* Loading & Success Modal */}
-                    {isLoading && <span className="loading fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-40"></span>}
-                    {isSuccess && (
-                        <div className="absolute inset-0 flex items-center justify-center font-inter z-40">
-                            <div className="bg-white w-2xs h-40 p-6 rounded-lg shadow-lg text-center">
-                                <p className="text-gray-800 text-xl uppercase font-medium my-2">{ isSignIn ? "Welcome back!" : "Welcome!"}</p>
-                                <p className="text-gray-800 text-lg font-medium">Hello, {UserDetails.name}</p>
-                            </div>
-                        </div> 
-                    )}
-
                 </div>
             )}
         </AnimatePresence>

@@ -6,6 +6,7 @@ import { Button } from "../../../components/ui/button";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { useAuthStore } from "@/app/components/auth/store/authStore";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   product: Product;
@@ -32,10 +33,11 @@ export default function ProductCard({ product}: ProductCardProps) {
           onClick={(e) => {
             e.preventDefault();
             if(!isAuthenticated) {
-              alert("Please log in to add items to your wishlist.");
+              toast.info("Please log in to add items to your wishlist.");
               return;
             }
             addToWishlist(product);
+            toast.success("Item added to wishlist.")
           }}
           className="absolute top-2 right-2 hover:bg-yellow-400 hover:scale-110 group-hover:bg-gray-200 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 px-0 py-0 rounded-full"
         >
@@ -49,10 +51,11 @@ export default function ProductCard({ product}: ProductCardProps) {
           onClick={(e) => {
             e.preventDefault();
             if(!isAuthenticated) {
-              alert("Please log in to add items to your cart.");
+              toast.info("Please log in to add items to your cart.");
               return;
             }
             addToCart(product);
+            toast.success("Item added to cart.")
           }}
           className="absolute bottom-2 right-2 transform opacity-0 translate-y-2 hover:scale-110 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-0 py-0 rounded-full"
         >

@@ -10,6 +10,7 @@ import { useState } from "react";
 import PaymentMethod from "./paymentMethod";
 import Loader from "../../../components/ui/loader";
 import { useYourOrdersStore } from "@/app/features/checkout/store/orderStore";
+import { toast } from "sonner";
 
 interface CheckoutProps {
     isOpen: boolean;
@@ -67,7 +68,8 @@ export default function Checkout({isOpen, onClose, onYourOrderOpen}: CheckoutPro
             onClose?.();
             clearCart();
             setShippingForm({ streetAddress: '', city: '', postalCode: '' });
-            onYourOrderOpen?.();
+            onYourOrderOpen?.(); 
+            toast.success("Order placed successfully. Thank you for your purchase!")
             // Add order to your orders store
         }, 1000); // success visible for 1000ms
       }, 2000); // simulated request

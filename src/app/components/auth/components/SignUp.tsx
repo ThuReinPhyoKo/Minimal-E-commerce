@@ -3,19 +3,26 @@ import { Button } from "@/app/components/ui/button";
 import { Lock, Mail, Eye, EyeOff, User } from "lucide-react";
 import { useState } from "react";
 import { UserDetails } from "../user/userDetail";
+import { Dispatch, SetStateAction } from "react";
 
-export default function SignUpForm() {
+type LoginForm = {
+    name?: string,
+    email: string,
+    password: string,
+    check: boolean,
+    role: string,
+}
+
+type SignUpProps = {
+    form: LoginForm;
+    setForm: Dispatch<SetStateAction<LoginForm>>
+}
+
+export default function SignUpForm({form, setForm} : SignUpProps) {
     const [ showPassword, setShowPassword ] = useState(false);
-    const [ formData, setFormData ] = useState({
-        name: '',
-        email: '',
-        password: '',
-        check: false,
-        role: '',
-    });
 
     const fillDemoData = () => {
-        setFormData({
+        setForm({
             name: UserDetails.name,
             email: UserDetails.email,
             password: UserDetails.password,
@@ -36,8 +43,8 @@ export default function SignUpForm() {
                     <input
                         id='name'
                         aria-label="Name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        value={form.name}
+                        onChange={(e) => setForm((prev) => ({...prev, name: e.target.value}))}
                         placeholder="Enter your name"
                         required
                         className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5 pl-10"
@@ -50,8 +57,8 @@ export default function SignUpForm() {
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
                     <input
                         id='email'
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        value={form.email}
+                        onChange={(e) => setForm((prev) => ({...prev, email: e.target.value}))}
                         aria-label="Email Address"
                         placeholder="Enter your email"
                         required
@@ -66,8 +73,8 @@ export default function SignUpForm() {
                     <input
                         id='password'
                         type={showPassword ? "text" : "password"}
-                        value={formData.password}
-                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                        value={form.password}
+                        onChange={(e) => setForm((prev) => ({...prev, password: e.target.value}))}
                         aria-label="Password"
                         placeholder="Enter your password"
                         required
@@ -89,8 +96,8 @@ export default function SignUpForm() {
                             name="role"
                             type="radio"
                             value="customer"
-                            checked={formData.role === 'customer'}
-                            onChange={() => setFormData({ ...formData, role: 'customer' })}
+                            checked={form.role === 'customer'}
+                            onChange={(e) => setForm((prev) => ({...prev, role: e.target.value}))}
                             className="appearance-none w-3 h-3 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
                           />
                           <span className="ml-2 text-gray-500 text-sm">Customer</span>
@@ -101,8 +108,8 @@ export default function SignUpForm() {
                             name="role"
                             type="radio"
                             value="seller"
-                            checked={formData.role === 'seller'}
-                            onChange={() => setFormData({ ...formData, role: 'seller' })}
+                            checked={form.role === 'seller'}
+                            onChange={(e) => setForm((prev) => ({...prev, role: e.target.value}))}
                             className="appearance-none w-3 h-3 border border-gray-400 rounded-full cursor-pointer checked:bg-yellow-300"
                           />
                           <span className="ml-2 text-gray-500 text-sm">Seller</span>
@@ -114,8 +121,8 @@ export default function SignUpForm() {
                     <input 
                         id="agree" 
                         type="checkbox"
-                        checked={formData.check} 
-                        onChange={(e) => setFormData({...formData, check: e.target.checked})}  
+                        checked={form.check} 
+                        onChange={(e) => setForm((prev) => ({...prev, check: e.target.checked}))}  
                         className="mr-2 h-4 w-4 text-blue-600 rounded focus:ring-blue-500" />
                     <label htmlFor="agree" className="text-sm text-gray-500 font-medium">
                         I agree to the Terms and Conditions

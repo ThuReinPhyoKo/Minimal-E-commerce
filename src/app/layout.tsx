@@ -4,6 +4,7 @@ import "./globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/react-query";
 import ClientShell from "./providers/clientshell";
+import { Toaster } from "sonner"
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -34,6 +35,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <ClientShell>
           {children}
+          <Toaster position="bottom-right" richColors />
           </ClientShell>
         </QueryClientProvider>
       </body>
