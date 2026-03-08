@@ -6,7 +6,7 @@ import AppAutocomplete from "../../features/products/components/search";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
 import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { useSearchSuggestions } from "@/app/features/products/api/getSearchSuggestions";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
 import { useAuthStore } from "../auth/store/authStore";
@@ -23,6 +23,10 @@ interface NavProps {
 }
 
 export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAuthOpen }: NavProps ) {
+    
+    const pathname = usePathname();
+
+    if(pathname === "/dashboard") return null;
     
     const { isAuthenticated } = useAuthStore();
     const { profile } = UserDetails;
@@ -43,7 +47,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
 
     const router = useRouter();
     const searchParams = useSearchParams();
-
+    console.log("routre = ",router)
     function updateQuery(value: string) {
         const params = new URLSearchParams(searchParams.toString());
 
