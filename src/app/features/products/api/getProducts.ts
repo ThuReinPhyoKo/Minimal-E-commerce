@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { ProductsResponse } from '../types/productResponse';
 import { fetchByCategory } from './getByCategory';
+import { useProductStore } from '../store/productStore';
 
 export const fetchProducts = async (page: number, sortBy?: string, order?: string): Promise<ProductsResponse> => {
   const limit = 16; // Number of products per page
@@ -22,14 +24,25 @@ export const fetchProducts = async (page: number, sortBy?: string, order?: strin
 };
 
 export const useProducts = (page: number, category?: string, sortBy?: string, order?: string) => {
-    return useQuery<ProductsResponse>({
-    queryKey: ['products', category?? "all", page, sortBy, order],
-    queryFn: () => {
-      if(category) {
-        return fetchByCategory(category, page, sortBy, order);
-      } 
-      return fetchProducts(page, sortBy, order);
-    },
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
+    
+    const hydrateCatalog = useProductStore((state) => state.hydrateCatalog)
+
+    const query = useQuery<ProductsResponse>({
+      queryKey: ['products', category?? "all", page, sortBy, order],
+      queryFn: () => {
+        if(category) {
+          return fetchByCategory(category, page, sortBy, order);
+        } 
+        return fetchProducts(page, sortBy, order);
+      },
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+
+    useEffect(() => {
+      if(query.data?.products){
+        hydrateCatalog(query.data.products)
+      }
+    }, [query.data, hydrateCatalog])
+
+  return query;
 };

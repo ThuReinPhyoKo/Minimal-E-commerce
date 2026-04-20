@@ -12,15 +12,17 @@ export default function Hero() {
               <h2 className="font-inter tracking-widest text-[#fff700] text-7xl font-bold ">Essentials</h2>
               <p className="text-gray-700 text-center text-xl font-inter my-5">Discover our curated collection of thoughtfully designed<br/> products for the modern lifestyle. Less is more.</p>
               <div className="flex items-center gap-8">
-                <Button
-                  variant="main"
-                  size="md"
-                  icon={<ArrowRight />}
-                  iconPosition="right"
-                  className="mt-2.5 shadow-lg mb-8 font-semibold"
-                >
-                  Shop Collection
-                </Button>
+                <a href="#browse-products">
+                  <Button
+                    variant="main"
+                    size="md"
+                    icon={<ArrowRight />}
+                    iconPosition="right"
+                    className="mt-2.5 shadow-lg mb-8 font-semibold"
+                  >
+                    Shop Collection
+                  </Button>
+                </a>
                 <Button
                  variant="transparent"
                  size="md"

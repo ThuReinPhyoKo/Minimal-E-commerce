@@ -1,12 +1,15 @@
 "use client"
-import { useRouter } from "next/navigation"
-import { Button } from "../components/ui/button"
-import { ArrowLeft, Users, ShoppingCart, Package, DollarSign } from "lucide-react"
-import { UserDetails } from "../components/auth/user/userDetail"
+import { useRouter } from "next/navigation";
+import { Button } from "../components/ui/button";
+import { ArrowLeft, Users, ShoppingCart, Package, DollarSign, Plus, Trash2, SquarePen, Star } from "lucide-react";
+import { UserDetails } from "../components/auth/user/userDetail";
 import Image from "next/image";
 import { useDashboardProducts } from "./data/getDashboardProducts";
-import { mockOrders } from "./data/mockData"
-import { useState } from "react"
+import { mockOrders } from "./data/mockData";
+import { useState } from "react";
+import { useFormStore } from "./store/formStore";
+import { discountPrice } from "../features/products/components/productCard";
+import { useProductStore } from "../features/products/store/productStore";
 
 export default function Dashboard() {
 
@@ -14,8 +17,14 @@ export default function Dashboard() {
     const router = useRouter();
 
     const { data, isLoading, isError } = useDashboardProducts();
+    const openForm = useFormStore((s) => s.openForm)
+    const catalog = useProductStore((s) => s.catalog);
+    const deleteProduct = useProductStore((s) => s.deleteProduct);
+    const deletedIds = useProductStore((s) => s.deletedIds);
 
-    const [ isProductTab, setIsProductTab ] = useState(false);
+    const deletedIdSet = new Set(deletedIds);
+
+    const [ isProductTab, setIsProductTab ] = useState(true);
     const [ isOrderTab, setIsOrderTab ] = useState(false);
 
     const toggleProductTab = () => {
@@ -28,11 +37,13 @@ export default function Dashboard() {
     }
 
     const stats = [
-        { label: "Revenue", value: `$${data?.products.reduce((s, p) => s + p.price, 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, change: "+12.5%", icon: DollarSign },
-        { label: "Orders", value: "156", change: "+8.2%", icon: ShoppingCart },
-        { label: "Products", value: String(data?.products.length), change: "+2", icon: Package },
-        { label: "Customers", value: "1,240", change: "+5.1%", icon: Users },
+        { id: 1, label: "Revenue", value: `$${data?.products.reduce((s, p) => s + p.price, 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, change: "+12.5%", icon: DollarSign },
+        { id: 2, label: "Orders", value: "156", change: "+8.2%", icon: ShoppingCart },
+        { id: 3, label: "Products", value: String(data?.products.length), change: "+2", icon: Package },
+        { id: 4, label: "Customers", value: "1,240", change: "+5.1%", icon: Users },
     ];
+
+    console.log(catalog)
 
     return (
         <section className="min-h-screen bg-[hsl(220,13%,98%)]/50 font-inter">
@@ -67,7 +78,7 @@ export default function Dashboard() {
                 {/* Overview, basic metric cards */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
                     { stats.map((stat) => (
-                        <div className="bg-[hsl(0,0%,100%)] border border-[hsl(220,13%,91%)] rounded-lg p-5">
+                        <div id={stat.label} key={stat.id} className="bg-[hsl(0,0%,100%)] border border-[hsl(220,13%,91%)] rounded-lg p-5">
                             <div className="flex items-center justify-between mb-3">
                                 <span className="text-gray-500 text-xs font-medium uppercase tracking-widest">{stat.label}</span>
                                 <stat.icon size={16} className="text-gray-500" />
@@ -78,20 +89,13 @@ export default function Dashboard() {
                             </p>
                         </div>
                     ))}
-
-                    {/* {isError && <div className="text-center text-sm font-medium text-gray-700">Failed to load products.</div>}
-                    {isLoading && <span className="loader"></span>}
-                    { data?.products.map(i => (
-                        <div key={i.id}>
-                            <p>{i.title}</p>
-                        </div>
-                    ))} */}
                 </div>
 
-                <div className="w-[142] mb-6 bg-gray-50 rounded-lg border border-[hsl(220,13%,91%)] flex items-center p-px">
+                <div className="w-[142] mb-6 bg-gray-100 rounded-lg border border-[hsl(220,13%,91%)] flex items-center p-px">
                     <button className={`${isProductTab ? "text-gray-800 shadow-2xl rounded-lg bg-white" : "text-gray-400"} cursor-pointer font-medium p-2 text-sm`} onClick={toggleProductTab}>Products</button>
                     <button className={`${isOrderTab ? "text-gray-800 shadow-2xl rounded-lg bg-white" : "text-gray-400"} cursor-pointer font-medium p-2 text-sm`} onClick={toggleOrderTab}>Orders</button>
                 </div>
+
                 { isOrderTab && (
                     <div className="bg-[hsl(0,0%,100%)] rounded-lg border border-[hsl(220,13%,91%)]">
                         <div className="px-5 py-4 border-b border-[hsl(220,13%,91%)]">
@@ -116,7 +120,74 @@ export default function Dashboard() {
                 )}
                 { isProductTab && (
                     <>
-                        <p>Products</p>
+                        <div className="bg-[hsl(0,0%,100%)] rounded-lg border border-[hsl(220,13%,91%)]">
+                            <div className="px-5 py-4 flex items-center justify-between border-b border-[hsl(220,13%,91%)]">
+                                <div className="flex items-center justify-center gap-2.5">
+                                    <h2 className="text-sm font-semibold text-gray-700">
+                                        All Products <span className="text-gray-600 text-xs font-medium">(18 products)</span>
+                                    </h2>
+                                    <div className={isLoading ? "loader-mini" : "hidden"}></div>
+                                </div>
+                                <Button
+                                    variant="none"
+                                    size="xs"
+                                    icon={<Plus className="w-4 text-white" />}
+                                    iconPosition="left"
+                                    onClick={() => openForm("add")}
+                                    className="text-white bg-gray-800 hover:bg-gray-700 px-2 py-1 rounded-lg"
+                                >
+                                    Add product
+                                </Button>
+                            </div>
+
+                            {isError && <div className="text-center text-sm font-medium text-gray-700">Failed to load products.</div>}
+                            
+                            { data?.products
+                            .filter((p) => !deletedIdSet.has(p.id))
+                            .map((i) => {
+                                const product = catalog[i.id] || i;
+                                return (
+                                <div key={product.id} className="px-5 py-4 grid grid-cols-3 items-center justify-between border-b border-[hsl(220,13%,91%)]">
+                                    <div className="flex items-center gap-1.5">
+                                        <Image src={product.thumbnail} width={40} height={40} alt="product-image" />
+                                        <div>
+                                            <p className="text-sm text-gray-700">{product.title}</p>
+                                            <p className="text-xs text-gray-400">{product.brand}</p>
+                                        </div>
+                                    </div>
+                                    <p className="text-sm text-gray-500 text-center">{product.category}</p>
+                                    <div className="flex items-center justify-end gap-10">
+                                        <p className="text-sm text-gray-800 font-medium">${discountPrice(product.price, product.discountPercentage)}</p>
+                                        <div className="flex items-center justify-center gap-1">
+                                            <Star className="fill-gray-500 stroke-0 w-3 h-3" />
+                                            <p className="text-xs text-gray-700">{product.rating}</p>
+                                        </div>                                        
+                                        <div className="flex items-center justify-end gap-2">
+                                            <Button
+                                                variant="transparent"
+                                                size="xs"
+                                                icon={<SquarePen className="w-4 text-gray-500" />}
+                                                onClick={() => openForm("edit", product)}
+                                                aria-label="open-form"
+                                                className="hover:bg-black/10 px-1 py-0.5 rounded-lg"
+                                            >
+                                                <span className="sr-only">Edit</span>
+                                            </Button>
+                                            <Button
+                                                variant="transparent"
+                                                size="xs"
+                                                icon={<Trash2 className="w-4 text-gray-500" />}
+                                                onClick={() => deleteProduct(product)}
+                                                aria-label="delete-product"
+                                                className="hover:bg-black/10 px-1 py-0.5 rounded-lg"
+                                            >
+                                                <span className="sr-only">Delete</span>
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )})}
+                        </div>
                     </>
                 )}
             </main>

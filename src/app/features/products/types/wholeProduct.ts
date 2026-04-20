@@ -36,4 +36,5 @@ export type Product = {
   };
   thumbnail: string;
   images: string[];
+  isCustom?: boolean;
 };

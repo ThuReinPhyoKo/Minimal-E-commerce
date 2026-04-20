@@ -8,16 +8,17 @@ import { theme } from "../../../theme/mui-theme";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchProducts } from "../api/getBySearch";
+import { useStoreReady } from "@/app/hooks/useStoreReady";
+import { useProductStore } from "../store/productStore";
 
 type ProductsListProps = {
   selectedCategory ?: string;
   page : number;
-  onPageChange : (page: number) => void;
+  onPageChange : (page: number) => void; 
   sortBy?: string;
   order?: "asc" | "desc";
   query?: string;
 }
-
 
 export default function ProductsList({selectedCategory, query, page, onPageChange, sortBy, order}: ProductsListProps) {
 
@@ -31,6 +32,10 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
 
   const productRef = useRef<HTMLElement | null>(null);
   const isFirstRender = useRef(true);
+  const isReady = useStoreReady();
+  const catalog = useProductStore(state => state.catalog);
+  const deletedIds = useProductStore(state => state.deletedIds);
+  const deletedIdSet = new Set(deletedIds);
 
   useEffect(() => {
       if ( isFirstRender.current && !query ) {
@@ -56,7 +61,7 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
         </div>
       ) : (
       <div className="grid grid-cols-4 gap-3">
-        { isLoading || isFetching ? (
+        { isLoading || isFetching || !isReady ? (
           Array.from({ length: 16 }).map((_, i) => (
             <div key={i} className="w-64 h-80">
               <Skeleton variant="rectangular" width={256} height={256} animation="wave" />
@@ -66,11 +71,15 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
             </div>
           ))
         ) : (
-          data?.products.map((product) => (
+          data?.products
+          .filter((p) => !deletedIdSet.has(p.id))
+          .map((apiItem) => {
+            const product = catalog[apiItem.id] || apiItem;
+            return (
             <Link href={`/category/${product.category}/${product.id}`} key={product.id}>
               <ProductCard product={product} />
             </Link>
-          ))
+          )})
         )}
       </div>
       )}
@@ -87,4 +96,3 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
     </section>
   )
 }
-

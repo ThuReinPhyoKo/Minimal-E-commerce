@@ -12,6 +12,8 @@ import { useWishlistStore } from "@/app/features/wishlist/store/wishlistStore";
 import { dateFormat } from "@/app/utils/dateFormat";
 import { useAuthStore } from "@/app/components/auth/store/authStore";
 import { toast } from "sonner";
+import { useStoreReady } from "@/app/hooks/useStoreReady";
+import { useProductStore } from "../store/productStore";
 
 export default function ProductPage() {
     const [ selectedImage, setSelectedImage ] = useState<string | null>(null);
@@ -20,12 +22,13 @@ export default function ProductPage() {
     const { isAuthenticated } = useAuthStore();
     const params = useParams();
     const id = params?.id;
-    const { data, isLoading, isError } = useSingleProduct(id? String(id) : "");
-
-
+    const { isLoading, isError } = useSingleProduct(id? String(id) : "");
+    const isReady = useStoreReady();
+    const data = useProductStore(state => state.catalog[Number(id)])
+    
     return (
         <div className={`w-full ${ isLoading || isError ? "h-screen" : "" } flex flex-col items-center justify-center bg-white text-black`}>
-            {isLoading && <span className="loading"></span>}
+            {isLoading || !isReady && <span className="loading"></span>}
             {isError && <span>Failed to load product details 😢</span>}
             {data && (
                 <section className="w-full flex gap-5 p-20">            

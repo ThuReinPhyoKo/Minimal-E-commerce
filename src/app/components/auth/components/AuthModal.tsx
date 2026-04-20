@@ -72,7 +72,7 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-20 flex justify-end">
+                <div className="fixed inset-0 z-20">
                     <motion.div id="overlay" className="absolute inset-0 bg-black/60" onClick={ onClose }
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

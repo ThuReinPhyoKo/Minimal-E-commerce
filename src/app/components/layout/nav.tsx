@@ -47,7 +47,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
 
     const router = useRouter();
     const searchParams = useSearchParams();
-    console.log("routre = ",router)
+    
     function updateQuery(value: string) {
         const params = new URLSearchParams(searchParams.toString());
 
