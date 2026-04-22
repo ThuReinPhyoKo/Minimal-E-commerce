@@ -37,6 +37,10 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
   const deletedIds = useProductStore(state => state.deletedIds);
   const deletedIdSet = new Set(deletedIds);
 
+  const apiProducts = new Set(data?.products.map((p) => p.id));
+  const brandNewProduct = Object.values(catalog).filter((p) => p.isCustom && !apiProducts.has(p.id) && !deletedIdSet.has(p.id));
+  const allProducts = [...brandNewProduct, ...(data?.products || [])].filter((p) => !deletedIdSet.has(p.id));
+
   useEffect(() => {
       if ( isFirstRender.current && !query ) {
         isFirstRender.current = false;
@@ -71,8 +75,7 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
             </div>
           ))
         ) : (
-          data?.products
-          .filter((p) => !deletedIdSet.has(p.id))
+          allProducts
           .map((apiItem) => {
             const product = catalog[apiItem.id] || apiItem;
             return (

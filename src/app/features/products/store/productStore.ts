@@ -8,6 +8,7 @@ interface ProductStoreType {
     hydrateCatalog: (products: Product[]) => void;
     editProduct: (editedProduct: Product) => void;
     deleteProduct: (deletedProduct: Product) => void;
+    addProduct: (newProduct: Product) => void;
 }
 
 export const useProductStore = create<ProductStoreType>() (
@@ -16,6 +17,8 @@ export const useProductStore = create<ProductStoreType>() (
             catalog: {},
             deletedIds: [],
 
+            // Reconciles API data with local state to ensure 
+            // user-edited products aren't overwritten by stale responses.
             hydrateCatalog: (products) => 
             set((state) => {
                 const newCatalog = {...state.catalog};
@@ -41,6 +44,14 @@ export const useProductStore = create<ProductStoreType>() (
                 const { [deletedProduct.id]: _, ...newCatalog } = state.catalog;
                 const newDeletedIds = state.deletedIds ? [...state.deletedIds, deletedProduct.id] : [deletedProduct.id]
                 return {catalog: newCatalog, deletedIds: newDeletedIds};
+            }),
+
+            addProduct: (newProduct) =>
+            set((state) => {
+                const newCatalog = {...state.catalog};
+                const newId = Date.now(); // Using timestamp as a simple unique ID generator
+                newCatalog[newId] = {...newProduct, id: newId, isCustom: true};
+                return {catalog: newCatalog};
             })
         }),
         {

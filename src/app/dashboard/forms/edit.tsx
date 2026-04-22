@@ -78,7 +78,7 @@ export default function EditForm() {
                             </label>
                             {/* Image div */}
                             <div className="flex gap-2.5">
-                                <img src={data.thumbnail} alt="product-image" className="w-48 h-48 object-contain rounded-xl border border-[hsl(220,13%,91%)] bg-gray-50" />
+                                <img src={data.thumbnail || "/placeholder-image.jpg"} alt={data.title} className="w-48 h-48 object-contain rounded-xl border border-[hsl(220,13%,91%)] bg-gray-50" />
                                 <div className="flex flex-col justify-end">
                                     <label className="bg-white border text-xs border-gray-300 rounded px-4 py-2 cursor-pointer flex items-center gap-1">
                                       <Upload className="w-4 h-4 text-gray-700" />
