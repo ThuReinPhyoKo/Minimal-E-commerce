@@ -39,10 +39,12 @@ export default function EditForm() {
     }
 
     const handleSave = () => {
+        const productID = product?.id;
         editProduct(
             product?{
                 ...product, 
-                ...data, 
+                ...data,
+                id: productID, 
                 price: Number(data.price), 
                 discountPercentage: Number(data.discountPercentage)} as any : {...data, price: Number(data.price), discountPercentage: Number(data.discountPercentage)} as any);
                 closeForm();

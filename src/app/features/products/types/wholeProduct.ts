@@ -37,4 +37,5 @@ export type Product = {
   thumbnail: string;
   images: string[];
   isCustom?: boolean;
+  isNew?: boolean;
 };

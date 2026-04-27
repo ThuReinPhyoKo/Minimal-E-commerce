@@ -11,6 +11,9 @@ export default function AddForm() {
     const form = useFormStore((s) => s.form);
     const closeForm = useFormStore((s) => s.closeForm);
     const addProduct = useProductStore((s) => s.addProduct);
+    const catalog = useProductStore((s) => s.catalog);
+
+    const categories = [...new Set(Object.values(catalog).map(product => product.category))];
 
     const [ imagePreview, setImagePreview ] = useState<string>("");
 
@@ -20,8 +23,8 @@ export default function AddForm() {
         category: "all-product",
         brand: "",
         thumbnail: "",
-        price: 0,
-        discountPercentage: 0,
+        price: 0 as number,
+        discountPercentage: 0 as number,
     });
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +71,8 @@ export default function AddForm() {
         }as any);
         closeForm();
     }
+
+    console.log("cat", categories )
 
     return (
         <AnimatePresence>
@@ -180,7 +185,8 @@ export default function AddForm() {
                                     id='price'
                                     required
                                     type="number"
-                                    value={formData.price}
+                                    value={formData.price === 0 ? "" : formData.price}
+                                    placeholder="0"
                                     onChange={(e) => setFormData({...formData, price: parseFloat(e.target.value)})}
                                     className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
@@ -193,7 +199,8 @@ export default function AddForm() {
                                     id='discount'
                                     required
                                     type="number"
-                                    value={formData.discountPercentage}
+                                    value={formData.discountPercentage === 0 ? "" : formData.discountPercentage}
+                                    placeholder="0"
                                     onChange={(e) => setFormData({...formData, discountPercentage: parseFloat(e.target.value)})}
                                     className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />

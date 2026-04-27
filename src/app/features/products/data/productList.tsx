@@ -38,7 +38,28 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
   const deletedIdSet = new Set(deletedIds);
 
   const apiProducts = new Set(data?.products.map((p) => p.id));
-  const brandNewProduct = Object.values(catalog).filter((p) => p.isCustom && !apiProducts.has(p.id) && !deletedIdSet.has(p.id));
+  
+  // Only show new products on page 1, either in "all products" view or in search results when title matches
+  const isPageOne = page === 1;
+  const isViewingAllProducts = !selectedCategory || selectedCategory === "all-products";
+  const isSearching = !!query;
+  
+  const brandNewProduct = isPageOne 
+    ? Object.values(catalog).filter((p) => {
+        if (!p.isNew || apiProducts.has(p.id) || deletedIdSet.has(p.id)) return false;
+        
+        // In "all products" view: show all new products
+        if (isViewingAllProducts && !isSearching) return true;
+        
+        // In search: only show if title matches query
+        if (isSearching) {
+          return p.title.toLowerCase().includes(query.toLowerCase());
+        }
+        
+        return false;
+      })
+    : [];
+    
   const allProducts = [...brandNewProduct, ...(data?.products || [])].filter((p) => !deletedIdSet.has(p.id));
 
   useEffect(() => {

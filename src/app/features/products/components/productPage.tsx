@@ -34,7 +34,7 @@ export default function ProductPage() {
                 <section className="w-full flex gap-5 p-20">            
                     <div id="detail-image"  className="w-80 flex flex-col items-center gap-4 mb-4">
                         <Image
-                            src={selectedImage || data.images[0]}
+                            src={selectedImage || data.images[0] || data.thumbnail}
                             width="300"
                             height="300"
                             alt="test"

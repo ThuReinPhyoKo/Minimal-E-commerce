@@ -14,6 +14,8 @@ const fetchSingleProduct = async(id: string): Promise<Product> => {
 export const useSingleProduct = (id: string) => {
     
     const hydrateCatalog = useProductStore(state => state.hydrateCatalog)
+    // const catalog = useProductStore(state => state.catalog)
+    // const localProduct = catalog[Number(id)];
 
     const query = useQuery<Product>({
         queryKey: ['product', id],

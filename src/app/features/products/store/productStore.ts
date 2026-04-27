@@ -35,7 +35,11 @@ export const useProductStore = create<ProductStoreType>() (
             editProduct: (editedProduct) =>
             set((state) => {
                 const newCatalog = {...state.catalog};
-                newCatalog[editedProduct.id] = {...editedProduct, isCustom: true};
+                newCatalog[editedProduct.id] = {
+                    ...editedProduct, 
+                    isCustom: true,
+                    isNew: newCatalog[editedProduct.id]?.isNew || false,
+                };
                 return {catalog: newCatalog}
             }),
 
@@ -50,7 +54,7 @@ export const useProductStore = create<ProductStoreType>() (
             set((state) => {
                 const newCatalog = {...state.catalog};
                 const newId = Date.now(); // Using timestamp as a simple unique ID generator
-                newCatalog[newId] = {...newProduct, id: newId, isCustom: true};
+                newCatalog[newId] = {...newProduct, id: newId, isCustom: true, isNew: true};
                 return {catalog: newCatalog};
             })
         }),

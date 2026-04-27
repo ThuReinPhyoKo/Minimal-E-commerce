@@ -27,7 +27,7 @@ export default function Dashboard() {
     const deletedIdSet = new Set(deletedIds);
 
     const apiProducts = new Set(data?.products.map((p) => p.id));
-    const brandNewProduct = Object.values(catalog).filter((p) => p.isCustom && !apiProducts.has(p.id) && !deletedIdSet.has(p.id));
+    const brandNewProduct = Object.values(catalog).filter((p) => p.isNew && !apiProducts.has(p.id) && !deletedIdSet.has(p.id));
     const allProducts = [...brandNewProduct, ...(data?.products || [])].filter((p) => !deletedIdSet.has(p.id));
 
     const [ isProductTab, setIsProductTab ] = useState(true);
@@ -57,7 +57,6 @@ export default function Dashboard() {
         { id: 4, label: "Customers", value: "1,240", change: "+5.1%", icon: Users },
     ];
 
-    console.log(catalog)
 
     return (
         <section className="min-h-screen bg-[hsl(220,13%,98%)]/50 font-inter relative">
@@ -198,46 +197,46 @@ export default function Dashboard() {
                                             </Button>
                                         </div>
                                     </div>
-                                    {/* Delete Modal */}
-                                    <AnimatePresence>
-                                        {isDeleteModalOpen && (
-                                            <motion.div id="overlay" className="absolute inset-0 bg-black/10" onClick={() => setIsDeleteModalOpen(false)}
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                transition={{ duration: 0.3 }}
-                                            >
-                                                <motion.div className="fixed inset-0 z-20 flex items-center justify-center"
-                                                    initial={{ scale: 0.8, opacity: 0 }}
-                                                    animate={{ scale: 1, opacity: 1 }}
-                                                    exit={{scale: 0.8, opacity: 0}}
-                                                    transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                                                >
-                                                    <div className="bg-white p-5 rounded-2xl w-[500px] border border-[hsl(220,13%,91%)]">
-                                                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Delete Product?</h3>
-                                                        <p className="text-gray-700 font-medium mb-2">Are you sure you want to remove this item from your store?</p>
-                                                        <p className="text-gray-500 text-xs mb-6">Note: This action will remove the product from your current view, but it can be restored by clearing your browser data.</p>
-                                                        <div className="flex justify-end gap-3">
-                                                            <Button
-                                                                variant="gray"
-                                                                onClick={() => setIsDeleteModalOpen(false)}
-                                                            >
-                                                                Cancel
-                                                            </Button>
-                                                            <Button
-                                                                variant="main"
-                                                                onClick={() => handleDelete()}
-                                                            >
-                                                                Delete
-                                                            </Button>
-                                                        </div>
-                                                    </div>
-                                                </motion.div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
                                 </div>
                             )})}
+                            {/* Delete Modal */}
+                            <AnimatePresence>
+                                {isDeleteModalOpen && (
+                                    <motion.div id="overlay" className="absolute inset-0 bg-black/60" onClick={() => setIsDeleteModalOpen(false)}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        <motion.div className="fixed inset-0 z-20 flex items-center justify-center"
+                                            initial={{ scale: 0.8, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            exit={{scale: 0.8, opacity: 0}}
+                                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                                        >
+                                            <div className="bg-white p-5 rounded-2xl w-[500px] border border-[hsl(220,13%,91%)]">
+                                                <h3 className="text-lg font-semibold text-gray-900 mb-2">Delete Product?</h3>
+                                                <p className="text-gray-700 font-medium mb-2">Are you sure you want to remove this item from your store?</p>
+                                                <p className="text-gray-500 text-xs mb-6">Note: This action will remove the product from your current view, but it can be restored by clearing your browser data.</p>
+                                                <div className="flex justify-end gap-3">
+                                                    <Button
+                                                        variant="gray"
+                                                        onClick={() => setIsDeleteModalOpen(false)}
+                                                    >
+                                                        Cancel
+                                                    </Button>
+                                                    <Button
+                                                        variant="main"
+                                                        onClick={() => handleDelete()}
+                                                    >
+                                                        Delete
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     </>
                 )}
