@@ -80,7 +80,7 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
                         transition={{ duration: 0.3 }}
                     ></motion.div>
 
-                    <motion.div id="auth-modal" className="w-2/6 p-4 bg-white rounded-xl font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                    <motion.div id="auth-modal" className="w-[90%] md:w-2/6 p-4 bg-white rounded-xl font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{scale: 0.8, opacity: 0}}

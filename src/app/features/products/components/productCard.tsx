@@ -22,8 +22,8 @@ export default function ProductCard({ product}: ProductCardProps) {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <div className="w-64 border border-gray-200 rounded-lg hover:shadow-xl group bg-white cursor-pointer transition-shadow duration-300">
-      <div className="relative w-full h-64 overflow-hidden rounded-t-lg">
+    <div className="w-48 md:w-64 border border-gray-200 rounded-lg hover:shadow-xl group bg-white cursor-pointer transition-shadow duration-300">
+      <div className="relative w-full h-auto md:h-64 overflow-hidden rounded-t-lg">
         <Image className="bg-white object-contain group-hover:scale-110 transition-transform duration-500" src={product.thumbnail} alt={product.title} width={300} height={300} loading="eager" />
         <Button
           variant="transparent"
@@ -39,7 +39,7 @@ export default function ProductCard({ product}: ProductCardProps) {
             addToWishlist(product);
             toast.success("Item added to wishlist.")
           }}
-          className="absolute top-2 right-2 hover:bg-yellow-400 hover:scale-110 group-hover:bg-gray-200 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 px-0 py-0 rounded-full"
+          className="absolute top-0 md:top-2 right-2 hover:bg-yellow-400 hover:scale-110 group-hover:bg-gray-200 md:opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 px-0 py-0 rounded-full"
         >
           <span className="sr-only">Add to wishlist</span>
         </Button>
@@ -57,9 +57,9 @@ export default function ProductCard({ product}: ProductCardProps) {
             addToCart(product);
             toast.success("Item added to cart.")
           }}
-          className="absolute bottom-2 right-2 transform opacity-0 translate-y-2 hover:scale-110 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-0 py-0 rounded-full"
+          className="absolute bg-white md:bg-gray-200 bottom-2 right-2 transform md:opacity-0 translate-y-2 hover:scale-110 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 px-0 py-0 rounded-full"
         >
-          <span className="font-inter font-semibold text-gray-700 text-sm">Add to cart</span>
+          <span className="font-inter font-semibold text-gray-700 text-sm hidden md:block">Add to cart</span>
         </Button>
         <span className="absolute top-2 left-2 bg-yellow-400 text-gray-800 font-inter text-xs px-2 py-1 rounded-full">-{product.discountPercentage}%</span>
       </div>

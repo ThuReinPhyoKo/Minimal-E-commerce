@@ -71,7 +71,7 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
   }, [ page, selectedCategory, query]);
 
   return (
-    <section ref={productRef} className="my-8 flex flex-col items-center justify-between scroll-mt-20 w-full">
+    <section ref={productRef} className="md:my-8 flex flex-col items-center justify-between scroll-mt-20 w-full">
 
       {isError ? (
         <div className="mb-4 w-full h-3/5 flex flex-col items-center justify-center">
@@ -85,7 +85,7 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
           <p className="font-inter text-gray-600">Please check your connection or try again.</p>
         </div>
       ) : (
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-2 md:p-0">
         { isLoading || isFetching || !isReady ? (
           Array.from({ length: 16 }).map((_, i) => (
             <div key={i} className="w-64 h-80">

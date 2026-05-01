@@ -48,7 +48,7 @@ export default function SignInForm({form, setForm} : SignInProps) {
                         aria-label="Email Address"
                         placeholder="Enter your email"
                         required
-                        className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5 pl-10"
+                        className="h-9 w-full text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5 pl-10"
                     />
                 </div>
                 <label htmlFor='password' className='text-sm text-gray-500 font-medium'>
@@ -64,7 +64,7 @@ export default function SignInForm({form, setForm} : SignInProps) {
                         aria-label="Password"
                         placeholder="Enter your password"
                         required
-                        className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5 pl-10"
+                        className="h-9 w-full text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5 pl-10"
                     />
                     <Button onClick={() => setShowPassword(!showPassword)} variant="none" size="sm" className="absolute right-3 top-1/2 transform -translate-y-1/2">
                         {showPassword ? <EyeOff className="w-4 h-4 text-gray-500" /> : <Eye className="w-4 h-4 text-gray-500" />}

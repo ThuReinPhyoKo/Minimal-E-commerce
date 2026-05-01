@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { order, orderStore } from "../types/order";
+import { generateUUID } from "@/app/utils/uuid";
 
 export const useYourOrdersStore = create<orderStore>()(
     persist(
@@ -9,7 +10,7 @@ export const useYourOrdersStore = create<orderStore>()(
 
             createOrder: (cartItems, total) => {
                 const newOrder: order = {
-                    id: crypto.randomUUID(),
+                    id: generateUUID(),
                     items: cartItems,
                     total,
                     createdAt: new Date().toISOString(),

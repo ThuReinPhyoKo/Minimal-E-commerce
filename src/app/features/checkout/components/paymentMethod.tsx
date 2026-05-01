@@ -81,7 +81,7 @@ export default function PaymentMethod() {
                                     aria-label="Email Address"
                                     placeholder="you@example.com"
                                     required
-                                    className="h-9 text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                    className="h-9 text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
                                 <label htmlFor='card-number' className='text-sm text-gray-500 font-medium'>
                                     Card Number
@@ -93,7 +93,7 @@ export default function PaymentMethod() {
                                     aria-label="Card Number"
                                     placeholder="1234 5678 9012 3456"
                                     required
-                                    className="h-9 text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                    className="h-9 text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
                                 <div className="grid grid-cols-2 gap-3">
                                     <div>
@@ -105,7 +105,7 @@ export default function PaymentMethod() {
                                             aria-label="Expiry Date"
                                             placeholder="MM/YY"
                                             required
-                                            className="h-9 w-full mt-3 text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                            className="h-9 w-full mt-3 text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                         />
                                     </div>
                                     <div>
@@ -117,7 +117,7 @@ export default function PaymentMethod() {
                                             aria-label="CVV"
                                             placeholder="CVV"
                                             required
-                                            className="h-9 w-full mt-3 text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                            className="h-9 w-full mt-3 text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                         />
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@ export default function PaymentMethod() {
                                     aria-label="Card holder"
                                     placeholder="John Doe"
                                     required
-                                    className="h-9 text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                    className="h-9 text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
                             </div>
                         )}

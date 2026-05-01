@@ -65,9 +65,8 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
     return (
         <nav className="w-full p-1 flex justify-center items-center fixed top-0 z-10">
             <div id="nav-container" className="w-[95%] h-16 flex justify-between items-center">
+                
                 <div id="logo-and-login" className="bg-black/40 backdrop-blur-md border border-white/10 w-48 h-12 rounded-full flex justify-center items-center">
-                    {/* <h1 className="font-roboto text-2xl font-semibold text-gray-300 ml-2">{!isAuthenticated ? "Minimal" : "Mi"}</h1>
-                    <div id="divider" className="w-[1px] h-5 bg-gray-400 ml-2 mr-2"></div> */}
                     {!isAuthenticated ? (
                         <>
                             <h1 className="font-roboto text-2xl font-semibold text-gray-300 ml-2">Minimal</h1>
@@ -89,17 +88,17 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                         <>
                             <Image src={profile} alt="Profile Picture" width={32} height={32} className="rounded-full mx-2" />
                             <Link href="/dashboard">
-                            <Tooltip title="Admin Dashboard" arrow>
-                                <Button
-                                    variant="transparent"
-                                    size="sm"
-                                    icon={<LayoutDashboard className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
-                                    aria-label="dashboard"
-                                    className="mx-2 hover:bg-white/10"
-                                >
-                                    <span className="sr-only">Dashboard</span>
-                                </Button>
-                            </Tooltip>
+                                <Tooltip title="Admin Dashboard" arrow>
+                                    <Button
+                                        variant="transparent"
+                                        size="sm"
+                                        icon={<LayoutDashboard className="text-gray-300 group-hover:text-[#fff700] transition-colors" />}
+                                        aria-label="dashboard"
+                                        className="mx-2 hover:bg-white/10"
+                                    >
+                                        <span className="sr-only">Dashboard</span>
+                                    </Button>
+                                </Tooltip>
                             </Link>
                             <Tooltip title="Logout" arrow>
                                 <Button
@@ -116,6 +115,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                         </>
                     )}
                 </div>
+
                 <AppAutocomplete
                    options={options}
                    inputValue={query}
@@ -124,6 +124,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                    onKeyDown={e => e.key === "Enter" && updateQuery(query)}
                    freeSolo
                 />
+                
                 <div id="wishlist-and-cart-and-order" className="bg-black/40 backdrop-blur-md border border-white/10 w-48 h-12 rounded-full flex items-center justify-center">
                     <Tooltip title="Wishlist" arrow>
                         <Button

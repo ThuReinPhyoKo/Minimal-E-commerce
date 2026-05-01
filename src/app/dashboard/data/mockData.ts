@@ -1,7 +1,9 @@
 import { Clock, CheckCircle, XCircle, AlertCircle, TrendingUp } from "lucide-react"
+import { generateUUID } from "@/app/utils/uuid"
+
 export const mockOrders = [
             { 
-                id: crypto.randomUUID(), 
+                id: generateUUID(), 
                 customer: "John Doe", 
                 total: 124.99, 
                 status: "delivered", 
@@ -11,7 +13,7 @@ export const mockOrders = [
                 icon: CheckCircle,
             },
             { 
-                id: crypto.randomUUID(), 
+                id: generateUUID(), 
                 customer: "Jane Smith", 
                 total: 109.99, 
                 status: "shipped", 
@@ -21,7 +23,7 @@ export const mockOrders = [
                 icon: TrendingUp,
             },
             { 
-                id: crypto.randomUUID(), 
+                id: generateUUID(), 
                 customer: "Alex Brown", 
                 total: 249.99, 
                 status: "processing", 
@@ -30,7 +32,7 @@ export const mockOrders = [
                 colors: "bg-amber-100 border border-amber-200 text-amber-700",
                 icon: Clock,
             },
-            { id: crypto.randomUUID(), 
+            { id: generateUUID(), 
                 customer: "Maria Garcia", 
                 total: 116.37, 
                 status: "pending", 
@@ -40,7 +42,7 @@ export const mockOrders = [
                 icon: AlertCircle,
             },
             { 
-                id: crypto.randomUUID(), 
+                id: generateUUID(), 
                 customer: "Chris Lee", 
                 total: 179.99, 
                 status: "cancelled", 

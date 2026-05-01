@@ -51,8 +51,8 @@ export default function Grid() {
     }
 
     return (
-        <div id="browse-products" className="w-full h-auto flex">
-            <div className="flex flex-col">
+        <div id="browse-products" className="w-full h-auto flex flex-col md:flex-row">
+            <div className="flex md:flex-col">
                 <SortProducts 
                   sortBy={sortBy}
                   order={order}

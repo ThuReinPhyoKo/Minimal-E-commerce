@@ -28,7 +28,7 @@ export default function YourOrder({ isOpen, onClose }: YourOrderProps) {
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
                         transition={{ type: 'tween', duration: 0.3 }}
-                        className="w-1/2 h-full grid grid-rows-[auto_1fr] px-5 py-3 font-inter border-l border-gray-300 bg-white shadow-lg z-10"
+                        className="w-96 md:w-1/2 h-full grid grid-rows-[auto_1fr] px-5 py-3 font-inter border-l border-gray-300 bg-white shadow-lg z-10"
                     >
 
                         <div id="your-order-header" className="flex justify-between items-center m-0">

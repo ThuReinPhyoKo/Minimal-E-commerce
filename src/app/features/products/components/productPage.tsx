@@ -31,7 +31,7 @@ export default function ProductPage() {
             {isLoading || !isReady && <span className="loading"></span>}
             {isError && <span>Failed to load product details 😢</span>}
             {data && (
-                <section className="w-full flex gap-5 p-20">            
+                <section className="w-full flex flex-col md:flex-row items-center md:items-start gap-5 p-5 md:p-20">            
                     <div id="detail-image"  className="w-80 flex flex-col items-center gap-4 mb-4">
                         <Image
                             src={selectedImage || data.images[0] || data.thumbnail}
@@ -59,7 +59,7 @@ export default function ProductPage() {
                         </div>
                     </div>
 
-                    <div id="details" className="font-inter w-2xl flex flex-col items-start justify-start gap-4">
+                    <div id="details" className="font-inter md:w-2xl flex flex-col items-start justify-start gap-4">
                         <h1 className="text-2xl text-gray-800 font-semibold">{data.title}</h1>
                         <div className="flex items-center mb-1">
                         {[...Array(5)].map((_, i) => (
@@ -125,20 +125,22 @@ export default function ProductPage() {
                                         <img className="w-10 h-10 rounded-full" src={`https://api.dicebear.com/7.x/thumbs/svg?seed=${review.reviewerEmail}`} />
                                         <div className="w-full">
                                             <div className="w-full flex items-center justify-between">
-                                                <div className="flex items-center">
+                                                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-0">
                                                     <p className="text-gray-700 font-medium pr-2">{review.reviewerName}</p>
-                                                    {[...Array(5)].map((_, i) => (
-                                                        <Star key={i} className={`h-3 w-3 stroke-0 ${i < review.rating ? "fill-yellow-500" : "fill-gray-400"}`} />
-                                                    ))}
-                                                    <span className="ml-2 text-gray-800 font-inter text-sm font-medium">{review.rating} Stars</span>
+                                                    <div className="flex items-center">
+                                                        {[...Array(5)].map((_, i) => (
+                                                            <Star key={i} className={`w-4 h-4 md:h-3 md:w-3 stroke-0 ${i < review.rating ? "fill-yellow-500" : "fill-gray-400"}`} />
+                                                        ))}
+                                                        <span className="ml-2 text-gray-800 font-inter text-xs md:text-sm font-medium">{review.rating} Stars</span>
+                                                    </div>
                                                 </div>
-                                                <p className="text-xs text-gray-500">{dateFormat(review.date)}</p>
+                                                <p className="text-xs text-gray-500 hidden md:block">{dateFormat(review.date)}</p>
                                             </div>
-                                            <div className="text-gray-600 text-xs flex items-center gap-1 mb-2">
+                                            <div className="text-gray-600 text-xs flex items-center gap-1 my-2">
                                                 <Mail className="w-3 h-3 text-gray-600" />
                                                 <p>{review.reviewerEmail}</p>
                                             </div>
-                                                
+                                            <p className="text-xs text-gray-500 mb-2">{dateFormat(review.date)}</p>
                                             <p className="text-gray-800">"{review.comment}"</p>
                                         </div>
                                     </div>

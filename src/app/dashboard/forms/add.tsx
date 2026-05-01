@@ -86,7 +86,7 @@ export default function AddForm() {
                         transition={{ duration: 0.3 }}
                     ></motion.div>
 
-                    <motion.div className="bg-white w-3/5 h-4/5 p-5 rounded-xl overflow-y-auto edit-scrollbar font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                    <motion.div className="bg-white w-[90%] h-[95%] md:w-3/5 md:h-4/5 p-5 rounded-xl overflow-y-auto edit-scrollbar font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{scale: 0.8, opacity: 0}}
@@ -113,7 +113,7 @@ export default function AddForm() {
                                 <div className="flex flex-col justify-end">
                                     <label className="bg-white border text-xs border-gray-300 rounded px-4 py-2 cursor-pointer flex items-center gap-1">
                                       <Upload className="w-4 h-4 text-gray-700" />
-                                      Change Image
+                                      <span>Upload <span className="hidden md:block">Image</span></span>
                                       <input
                                         type="file"
                                         id="image-preview"
@@ -134,7 +134,7 @@ export default function AddForm() {
                                 type="text"
                                 value={formData.title}
                                 onChange={(e) => setFormData({...formData, title: e.target.value})}
-                                className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                className="h-9 w-full text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                             />
                             <label htmlFor='description' className='text-sm text-gray-500 font-medium'>
                                 Description
@@ -144,7 +144,7 @@ export default function AddForm() {
                                 required
                                 value={formData.description}
                                 onChange={(e) => setFormData({...formData, description: e.target.value})}
-                                className="h-20 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                className="h-20 w-full text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                             />
                         </div>
 
@@ -161,7 +161,7 @@ export default function AddForm() {
                                     value={formData.category}
                                     onChange={(e) => setFormData({...formData, category: e.target.value})}
                                     disabled
-                                    className="h-9 w-full text-sm text-gray-500 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                    className="h-9 w-full text-base md:text-sm text-gray-500 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
@@ -174,7 +174,7 @@ export default function AddForm() {
                                     type="text"
                                     value={formData.brand}
                                     onChange={(e) => setFormData({...formData, brand: e.target.value})}
-                                    className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                    className="h-9 w-full text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
@@ -188,7 +188,7 @@ export default function AddForm() {
                                     value={formData.price === 0 ? "" : formData.price}
                                     placeholder="0"
                                     onChange={(e) => setFormData({...formData, price: parseFloat(e.target.value)})}
-                                    className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                    className="h-9 w-full text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
                             </div>
                             <div className="flex flex-col gap-2">
@@ -202,7 +202,7 @@ export default function AddForm() {
                                     value={formData.discountPercentage === 0 ? "" : formData.discountPercentage}
                                     placeholder="0"
                                     onChange={(e) => setFormData({...formData, discountPercentage: parseFloat(e.target.value)})}
-                                    className="h-9 w-full text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
+                                    className="h-9 w-full text-base md:text-sm text-gray-900 border border-gray-300 rounded-md shadow-[0_1px_2px_rgba(0,0,0,0.04)] px-2.5"
                                 />
                             </div>
                         </div>

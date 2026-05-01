@@ -12,9 +12,10 @@ export default function SortProducts({sortBy, order, onSortChange}: SortProducts
 
     return (
       <>
-        <div className="relative w-36 mx-4 block md:hidden">
+        <div className="md:hidden relative w-full ml-4 mb-4 flex items-center gap-2">
+          <SlidersHorizontal className="text-gray-600 w-8 h-8" />
           <select 
-            className="w-full p-1 border rounded-md appearance-none font-inter text-xs text-gray-900"
+            className="w-full p-2 bg-white border text-sm border-gray-200 rounded-lg appearance-none text-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-300"
             value={current}
             onChange={(e) => {
               const value = e.target.value
@@ -35,7 +36,7 @@ export default function SortProducts({sortBy, order, onSortChange}: SortProducts
             <option value="price-desc">Price: High to Low</option>
             <option value="rating-desc">Rating</option>
           </select>
-          <ChevronDown className="absolute w-4 h-4 right-1 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-900" />
+          <ChevronDown className="absolute w-5 h-5 bg-white right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400" />
         </div>
 
         <div className="w-60 mt-8 mb-3 mx-4 p-4 border border-gray-200 rounded-lg bg-white font-inter hidden md:block">
