@@ -18,8 +18,7 @@ export default function ClientShell({ children }: Readonly<{ children: React.Rea
   const [ isCheckoutOpen, setIsCheckoutOpen ] = React.useState(false);
   const [ isAuthOpen, setIsAuthOpen ] = React.useState(false);
 
-  const anyModalOpen = isCartOpen || isWishlistOpen || isYourOrderOpen || isCheckoutOpen || isAuthOpen;
-
+  const anyModalOpen = isCartOpen ||isWishlistOpen || isYourOrderOpen || isCheckoutOpen || isAuthOpen;
 
   useLockBodyScroll(anyModalOpen);
     

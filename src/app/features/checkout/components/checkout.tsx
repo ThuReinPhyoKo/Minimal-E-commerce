@@ -87,7 +87,7 @@ export default function Checkout({isOpen, onClose, onYourOrderOpen}: CheckoutPro
                             transition={{ duration: 0.3 }}
                         ></motion.div>
 
-                        <motion.div className="w-2/5 h-9/10 bg-white border border-gray-700 rounded-xl font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pt-4" id="checkout"
+                        <motion.div className="w-[90%] md:w-2/5 h-9/10 bg-white border border-gray-700 rounded-xl font-inter fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pt-4" id="checkout"
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{scale: 0.8, opacity: 0}}

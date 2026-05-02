@@ -54,7 +54,7 @@ export default function Wishlist({ isOpen, onClose }: WishlistProps) {
                         exit={{ x: '100%' }}
                         transition={{ type: 'tween', duration: 0.3 }}
                         onClick={(e) => e.stopPropagation()}
-                        className="w-96 h-full grid grid-rows-[auto_1fr_auto] px-5 py-3 font-inter border-l border-gray-300 bg-white shadow-lg z-10"
+                        className="w-[90%] md:w-96 h-full grid grid-rows-[auto_1fr_auto] px-5 py-3 font-inter border-l border-gray-300 bg-white shadow-lg z-10"
                     >
                     
                         <div id="wishlist-header" className="flex justify-between items-center m-0">

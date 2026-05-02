@@ -63,7 +63,7 @@ export default function Cart( { isOpen, onClose, onCheckout }: CartProps) {
             animate={{ x: 0 }}
             exit={{x: '100%' }}
             transition={{ type: 'tween', duration: 0.3 }}
-            id="cart" className="w-96 h-full grid grid-rows-[auto_1fr_auto_auto] px-5 py-3 font-inter border-l border-gray-300 bg-white shadow-lg z-10" onClick={(e) => e.stopPropagation()}>
+            id="cart" className="w-[90%] md:w-96 h-full grid grid-rows-[auto_1fr_auto_auto] px-5 py-3 font-inter border-l border-gray-300 bg-white shadow-lg z-10" onClick={(e) => e.stopPropagation()}>
             
             <div id="cart-header" className="flex justify-between items-center m-0">
                 <h1 className="text-gray-700 font-semibold text-lg">Shopping Cart <ShoppingCart className="text-gray-600 inline-block ml-2" /></h1>
