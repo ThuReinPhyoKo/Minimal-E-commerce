@@ -98,7 +98,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
         onYourOrderOpen();
     }
     return (
-        <nav className="w-full flex justify-center items-center fixed top-0 z-10 bg-white">
+        <nav className="w-full flex justify-center items-center fixed top-0 z-10 bg-white md:bg-transparent">
             {/* Desktop nav */}
             <div id="nav-container" className="w-[95%] h-16 md:flex justify-between items-center hidden">
                 
