@@ -1,7 +1,7 @@
 'use client';
 import { Tooltip } from "@mui/material";
 import { Drawer, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from "@mui/material";
-import { Heart, ShoppingCart, Truck, User, LayoutDashboard, LogOut, Menu } from "lucide-react";
+import { House, Heart, ShoppingCart, Truck, User, LayoutDashboard, LogOut, Menu } from "lucide-react";
 import { Button } from "../ui/button";
 import AppAutocomplete from "../../features/products/components/search";
 import { useCartStore } from "@/app/features/cart/store/cartStore";
@@ -76,8 +76,29 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
         setMenuOpen(false);
     }
 
+    const handleMobileWishlist = () => {
+        if(!isAuthenticated) {
+            toast.info("Please log in to access your wishlist.") 
+            return;
+        }
+        onWishlistOpen();
+    }
+    const handleMobileCart = () => {
+        if(!isAuthenticated) {
+            toast.info("Please log in to access your cart.") 
+            return;
+        }
+        onCartOpen();
+    }
+    const handleMobileOrders = () => {
+        if(!isAuthenticated) {
+            toast.info("Please log in to access your orders.") 
+            return;
+        }
+        onYourOrderOpen();
+    }
     return (
-        <nav className="w-full flex justify-center items-center fixed top-0 z-10">
+        <nav className="w-full flex justify-center items-center fixed top-0 z-10 bg-white">
             {/* Desktop nav */}
             <div id="nav-container" className="w-[95%] h-16 md:flex justify-between items-center hidden">
                 
@@ -204,7 +225,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
             </div>
 
             {/* Mobile nav */}
-            <div id="mobile-nav" className="md:hidden border-b border-[hsl(220,13%,91%)] flex items-center justify-between w-full h-14 px-4 bg-white backdrop-blur-lg">
+            <div id="mobile-nav" className="md:hidden border-b border-[hsl(220,13%,91%)] flex items-center justify-between w-full h-14 px-2 bg-white backdrop-blur-lg">
                 <div className="flex items-center gap-0.5">
                     <Button
                         variant="transparent"
@@ -231,14 +252,15 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                         <h2 className="font-roboto text-xl font-semibold text-gray-900 tracking-wider">Minimal</h2>
                         <List>
                             {[
-                                { text: 'Wishlist', icon: <Heart size={20} />, action: onWishlistOpen, count: WishlistItemsTotal },
-                                { text: 'Cart', icon: <ShoppingCart size={20} />, action: onCartOpen, count: CartItemsTotal },
-                                { text: 'Orders', icon: <Truck size={20} />, action: onYourOrderOpen },
+                                { text: 'Home', icon: <House size={20} />, action: () => router.push("/") },
+                                { text: 'Wishlist', icon: <Heart size={20} />, action: handleMobileWishlist, count: WishlistItemsTotal },
+                                { text: 'Cart', icon: <ShoppingCart size={20} />, action: handleMobileCart, count: CartItemsTotal },
+                                { text: 'Orders', icon: <Truck size={20} />, action: handleMobileOrders },
                             ].map((item) => (
                                 <ListItem key={item.text} disablePadding>
                                     <ListItemButton onClick={() => { item.action(); setMenuOpen(false); }}>
                                         <ListItemIcon className="min-w-[40px] text-gray-600">
-                                            {isAuthenticated && item.text !== 'Orders' ? (
+                                            {isAuthenticated && item.text !== 'Orders' && item.text !== 'Home' ? (
                                                 <div className="relative">
                                                     {item.icon}
                                                     <span className="absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#fff700] text-[10px] font-bold text-black border border-white">
@@ -298,6 +320,14 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                             )}
                     </Box>
                 </Drawer>
+                <AppAutocomplete
+                   options={options}
+                   inputValue={query}
+                   onInputChange={(e, value) => setQuery(value)}
+                   onChange={(e, value) => typeof value === "string" &&updateQuery(value || "")}
+                   onKeyDown={e => e.key === "Enter" && updateQuery(query)}
+                   freeSolo
+                />
             </div>
         </nav>
     )

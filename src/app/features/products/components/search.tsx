@@ -14,9 +14,9 @@ export default function AppAutocomplete(props: AppAutocompleteProps) {
   return (
     <div
       id="search-bar"
-      className="bg-black/40 backdrop-blur-md border border-white/10 w-96 h-12 rounded-full flex items-center"
+      className="bg-white md:bg-black/40 backdrop-blur-md border border-gray-400 md:border-white/10 w-60 h-9 md:w-96 md:h-12 rounded-full flex items-center"
     >
-      <Search className="text-gray-300 ml-5" />
+      <Search className="text-gray-700 md:text-gray-300 ml-5" />
 
       <Autocomplete
         {...props}
@@ -52,11 +52,17 @@ export default function AppAutocomplete(props: AppAutocompleteProps) {
           "& .MuiInputBase-root": {
             height: "48px", // match h-12
             background: "transparent",
-            color: "#eeeeee",
+            color: {
+              xs: "#424242", // dark text for mobile
+              md: "#eeeeee"
+            },
             paddingLeft: "8px",
           },
           "& .MuiAutocomplete-clearIndicator": {
-            color: "#eeeeee",
+            color: {
+              xs: "#424242", 
+              md: "#eeeeee"
+            },
           },
           "& fieldset": {
             border: "none", // remove MUI’s default border
