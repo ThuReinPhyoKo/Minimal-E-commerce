@@ -70,6 +70,8 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
       productRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [ page, selectedCategory, query]);
 
+  
+
   return (
     <section ref={productRef} className="md:my-8 flex flex-col items-center justify-between scroll-mt-20 w-full">
 
@@ -107,6 +109,12 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
         )}
       </div>
       )}
+      { allProducts.length === 0 ? (
+        <div className="w-full h-80 flex flex-col items-center justify-center">
+          <p className="font-inter mb-2 text-base md:text-lg text-gray-600">No matches found.</p>
+          <p className="font-inter text-sm md:text-base text-gray-500">Try searching different keywords.</p>
+        </div>
+      ) : null }
       <ThemeProvider theme={theme}>
         <Pagination 
           count={data ? Math.ceil(data.total / 16) : 1} // Assuming 16 products per page

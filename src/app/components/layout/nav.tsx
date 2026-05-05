@@ -236,7 +236,13 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                     >
                         <span className="sr-only">menu</span>
                     </Button>
-                    <h1 className="font-roboto text-2xl font-semibold text-gray-900">Minimal</h1>
+                    <h1 className="font-roboto text-2xl font-semibold text-gray-900">
+                        <button
+                            onClick={() => router.push("/")}
+                        >
+                            Minimal
+                        </button>
+                    </h1>
                 </div>
                 <Drawer
                     anchor="left"
