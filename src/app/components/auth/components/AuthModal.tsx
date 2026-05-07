@@ -7,6 +7,7 @@ import SignInForm from "./signIn";
 import SignUpForm from "./SignUp";
 import { useAuthStore } from "../store/authStore";
 import { UserDetails } from "../user/userDetail";
+import { toast } from "sonner";
 
 interface AuthModalProps {
     isOpen: boolean;
@@ -148,7 +149,8 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
                             <Button 
                                 variant="transparent" 
                                 size="sm" 
-                                icon={<img src="/google.svg" className="w-4 h-4" />}    
+                                icon={<img src="/google.svg" className="w-4 h-4" />}
+                                onClick={() => toast.info("Third-party login is not available in the demo. Please use the Demo User option.")}
                                 className="flex-1 rounded-xl border border-black/20 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-gray-600 hover:text-white"
                             >
                                 Google
@@ -157,6 +159,7 @@ export default function AuthModal ( { isOpen, onClose }: AuthModalProps ) {
                                 variant="transparent" 
                                 size="sm" 
                                 icon={<img src="/facebook.svg" className="w-4 h-4" />}
+                                onClick={() => toast.info("Third-party login is not available in the demo. Please use the Demo User option.")}
                                 className="flex-1 rounded-xl border border-black/20 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:bg-gray-600 hover:text-white"
                             >
                                 Facebook

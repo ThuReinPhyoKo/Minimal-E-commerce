@@ -5,6 +5,7 @@ import { Button } from "@/app/components/ui/button";
 import { useProductStore } from "../../features/products/store/productStore";
 import { Upload } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function AddForm() {
 
@@ -70,6 +71,7 @@ export default function AddForm() {
             images: []
         }as any);
         closeForm();
+        toast.success("Product added successfully!");
     }
 
     console.log("cat", categories )
@@ -113,7 +115,7 @@ export default function AddForm() {
                                 <div className="flex flex-col justify-end">
                                     <label className="bg-white border text-xs border-gray-300 rounded px-4 py-2 cursor-pointer flex items-center gap-1">
                                       <Upload className="w-4 h-4 text-gray-700" />
-                                      <span>Upload <span className="hidden md:block">Image</span></span>
+                                      <span className="flex gap-1">Upload <span className="hidden md:block">Image</span></span>
                                       <input
                                         type="file"
                                         id="image-preview"

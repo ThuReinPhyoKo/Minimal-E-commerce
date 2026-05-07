@@ -78,21 +78,21 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
 
     const handleMobileWishlist = () => {
         if(!isAuthenticated) {
-            toast.info("Please log in to access your wishlist.") 
+            toast.info("Please log in with Demo Account to access your wishlist.") 
             return;
         }
         onWishlistOpen();
     }
     const handleMobileCart = () => {
         if(!isAuthenticated) {
-            toast.info("Please log in to access your cart.") 
+            toast.info("Please log in with Demo Account to access your cart.") 
             return;
         }
         onCartOpen();
     }
     const handleMobileOrders = () => {
         if(!isAuthenticated) {
-            toast.info("Please log in to access your orders.") 
+            toast.info("Please log in with Demo Account to access your orders.") 
             return;
         }
         onYourOrderOpen();
@@ -171,7 +171,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                             // disabled={!isAuthenticated}
                             onClick={() => {
                                 if(!isAuthenticated) {
-                                    toast.info("Please log in to access your wishlist.") 
+                                    toast.info("Please log in with Demo Account to access your wishlist.") 
                                     return;
                                 }
                                 onWishlistOpen();
@@ -191,7 +191,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                             aria-label="Open cart"
                             onClick={() => {
                                 if(!isAuthenticated) {
-                                    toast.info("Please log in to access your cart.")
+                                    toast.info("Please log in with Demo Account to access your cart.")
                                     return;
                                 }
                                 onCartOpen();
@@ -211,7 +211,7 @@ export default function Nav( { onCartOpen, onWishlistOpen, onYourOrderOpen, onAu
                             aria-label="Your Orders"
                             onClick={() => {
                                 if(!isAuthenticated) {
-                                    toast.info("Please log in to access your orders.")
+                                    toast.info("Please log in with Demo Account to access your orders.")
                                     return;
                                 }
                                 onYourOrderOpen();

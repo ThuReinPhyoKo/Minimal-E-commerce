@@ -12,6 +12,7 @@ import { discountPrice } from "../features/products/components/productCard";
 import { useProductStore } from "../features/products/store/productStore";
 import { AnimatePresence, motion } from "framer-motion";
 import { Product } from "../features/products/types/wholeProduct";
+import { toast } from "sonner";
 
 export default function Dashboard() {
 
@@ -48,6 +49,7 @@ export default function Dashboard() {
     const handleDelete = () => {
         deleteProduct(productToDelete!);
         setIsDeleteModalOpen(false);
+        toast.success("Product deleted successfully!");
     }
 
     const stats = [

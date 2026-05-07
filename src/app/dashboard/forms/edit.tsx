@@ -5,6 +5,7 @@ import { X, Upload } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { Button } from "@/app/components/ui/button";
 import { useProductStore } from "@/app/features/products/store/productStore";
+import { toast } from "sonner";
 
 export default function EditForm() {
 
@@ -48,6 +49,7 @@ export default function EditForm() {
                 price: Number(data.price), 
                 discountPercentage: Number(data.discountPercentage)} as any : {...data, price: Number(data.price), discountPercentage: Number(data.discountPercentage)} as any);
                 closeForm();
+                toast.success("Product updated successfully!");
     }
 
 

@@ -109,7 +109,7 @@ export default function ProductsList({selectedCategory, query, page, onPageChang
         )}
       </div>
       )}
-      { allProducts.length === 0 ? (
+      { allProducts.length === 0 && !isError ? (
         <div className="w-full h-80 flex flex-col items-center justify-center">
           <p className="font-inter mb-2 text-base md:text-lg text-gray-600">No matches found.</p>
           <p className="font-inter text-sm md:text-base text-gray-500">Try searching different keywords.</p>

@@ -31,7 +31,7 @@ export default function ProductPage() {
             {isLoading || !isReady && <span className="loading"></span>}
             {isError && <span>Failed to load product details 😢</span>}
             {data && (
-                <section className="w-full flex flex-col md:flex-row items-center md:items-start gap-5 p-5 mt-12 md:p-20">            
+                <section className="w-full flex flex-col md:flex-row items-center md:items-start gap-5 p-5 mt-12 md:mt-0 md:p-20">            
                     <div id="detail-image"  className="w-80 flex flex-col items-center gap-4 mb-4">
                         <Image
                             src={selectedImage || data.images[0] || data.thumbnail}

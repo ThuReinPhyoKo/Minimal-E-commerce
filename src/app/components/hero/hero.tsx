@@ -1,8 +1,13 @@
+"use client"
+
 import { ArrowRight, UserRoundPlus } from "lucide-react"
 import { Button } from "../ui/button"
 import StackedProfiles from "../ui/stackedProfiles"
+import { useAuthModalStore } from "../auth/store/authModalStore"
 
 export default function Hero() {
+    const openAuthModal = useAuthModalStore((state) => state.openAuthModal);
+
     return (
         <section className="relative flex min-h-screen flex-col items-center justify-center bg-[url('/hero-image.jpg')] bg-cover bg-center">
             <div className="absolute inset-0 bg-black opacity-18"></div>
@@ -29,6 +34,7 @@ export default function Hero() {
                  icon={<UserRoundPlus />}
                  iconPosition="left"
                  className="mt-2.5 mb-8 font-semibold group hover:bg-gray-700 box-shadow-strong hover:text-white"
+                 onClick={openAuthModal}
                 >
                   Join as Seller
                 </Button>
