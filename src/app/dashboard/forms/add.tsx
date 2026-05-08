@@ -37,6 +37,10 @@ export default function AddForm() {
         }
 
     const handleSave = () => {
+        if(!formData.title || !formData.description || !formData.brand || !formData.price){
+            toast.error("Please fill in all required fields.");
+            return;
+        }
         addProduct({
             id: 0, // This will be overridden in the store with a unique ID
             title: formData.title,
@@ -73,8 +77,6 @@ export default function AddForm() {
         closeForm();
         toast.success("Product added successfully!");
     }
-
-    console.log("cat", categories )
 
     return (
         <AnimatePresence>

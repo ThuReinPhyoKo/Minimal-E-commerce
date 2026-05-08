@@ -55,9 +55,11 @@ export default function Dashboard() {
     const stats = [
         { id: 1, label: "Revenue", value: `$${data?.products.reduce((s, p) => s + p.price, 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`, change: "+12.5%", icon: DollarSign },
         { id: 2, label: "Orders", value: "156", change: "+8.2%", icon: ShoppingCart },
-        { id: 3, label: "Products", value: String(data?.products.length ? data?.products.length + brandNewProduct.length : brandNewProduct.length), change: "+2", icon: Package },
+        { id: 3, label: "Products", value: String(allProducts.length), change: "+2", icon: Package },
         { id: 4, label: "Customers", value: "1,240", change: "+5.1%", icon: Users },
     ];
+    console.log("brand new products: ", brandNewProduct.length);
+    console.log("all products: ", allProducts.length);
 
 
     return (
@@ -143,7 +145,7 @@ export default function Dashboard() {
                             <div className="px-5 py-4 flex items-center justify-between border-b border-[hsl(220,13%,91%)]">
                                 <div className="flex items-center justify-center gap-2.5">
                                     <h2 className="text-sm font-semibold text-gray-700">
-                                        All Products <span className="text-gray-600 text-xs font-medium">(18 products)</span>
+                                        All Products <span className="text-gray-600 text-xs font-medium">({allProducts.length} products)</span>
                                     </h2>
                                     <div className={isLoading ? "loader-mini" : "hidden"}></div>
                                 </div>
