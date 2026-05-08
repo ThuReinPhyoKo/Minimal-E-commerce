@@ -159,7 +159,7 @@ export default function Dashboard() {
                                 </Button>
                             </div>
 
-                            {isError && <div className="text-center text-sm font-medium text-gray-700">Failed to load products.</div>}
+                            {isError && allProducts.length === 0 ? <div className="text-center text-sm font-medium text-gray-700">Failed to load products.</div> : null}
                             
                             { allProducts
                             .map((i) => {

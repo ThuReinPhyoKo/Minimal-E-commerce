@@ -55,7 +55,7 @@ export default function CategoryList({ selectedCategory, onSelectedCategory }: C
           </Button>
 
           {isLoading && <p className="mt-5 text-gray-500 px-4 text-sm">Loading...</p>}
-          {isError && <p className="mt-5 text-gray-500 px-4 text-sm">Error loading</p>}
+          {isError && data?.length === 0 ? <p className="mt-5 text-gray-500 px-4 text-sm">Error loading</p> : null}
 
           {data?.map((category) => (
             <Button
