@@ -86,7 +86,7 @@ export default function EditForm() {
                                 <div className="flex flex-col justify-end">
                                     <label className="bg-white border text-xs border-gray-300 rounded px-4 py-2 cursor-pointer flex items-center gap-1">
                                       <Upload className="w-4 h-4 text-gray-700" />
-                                      <span>Change <span className="hidden md:block">Image</span></span>
+                                      <span className="flex gap-1">Change <span className="hidden md:block">Image</span></span>
                                       <input
                                         type="file"
                                         id="image-preview"
