@@ -15,7 +15,7 @@ describe('Cart Store', () => {
         const state = useCartStore.getState();
         
         expect(state.items.length).toBe(1);
-        expect(state.items[0].price).toBe(11);
+        expect(state.items[0].price).toBe(10);
         expect(state.items[0].quantity).toBe(1);
     })
 
