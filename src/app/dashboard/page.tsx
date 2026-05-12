@@ -58,8 +58,6 @@ export default function Dashboard() {
         { id: 3, label: "Products", value: String(allProducts.length), change: "+2", icon: Package },
         { id: 4, label: "Customers", value: "1,240", change: "+5.1%", icon: Users },
     ];
-    console.log("brand new products: ", brandNewProduct.length);
-    console.log("all products: ", allProducts.length);
 
 
     return (
