@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: "https://minimal-mart.vercel.app",
     images: [
       {
-        url: "https://thureinphyoko.com/minimal-og.png",
+        url: "https://minimal-mart.vercel.app/minimal-og.png",
         width: 1200,
         height: 630,
         alt: "Minimal Essentials"
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Minimal Essentials",
     description:
       "Scalable user based e-commerce application with Admin Dashboard and functional CRUD operations built as a portfolio project by ThuReinPhyoKo, Ryan",
-    images: ["https://thureinphyoko.com/minimal-og.png"],
+    images: ["https://minimal-mart.vercel.app/minimal-og.png"],
   },
 };
 
