@@ -19,17 +19,17 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Minimal Essentials",
-  description: "Scalable user based e-commerce application built as a portfolio project by ThuReinPhyoKo, Ryan",
+  description: "Scalable user based e-commerce application with Admin Dashboard and functional CRUD operations built as a portfolio project by ThuReinPhyoKo, Ryan",
   openGraph: {
     title: "Minimal Essentials",
-    description: "Scalable user based e-commerce application built as a portfolio project by ThuReinPhyoKo, Ryan",
+    description: "Scalable user based e-commerce application with Admin Dashboard and functional CRUD operations built as a portfolio project by ThuReinPhyoKo, Ryan",
     url: "https://minimal-mart.vercel.app",
     images: [
       {
         url: "https://thureinphyoko.com/minimal-og.png",
         width: 1200,
         height: 630,
-        alt: "Thu Rein Phyo Ko's Portfolio"
+        alt: "Minimal Essentials"
       }
     ],
     type: "website"
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Minimal Essentials",
     description:
-      "Scalable user based e-commerce application built as a portfolio project by ThuReinPhyoKo, Ryan",
+      "Scalable user based e-commerce application with Admin Dashboard and functional CRUD operations built as a portfolio project by ThuReinPhyoKo, Ryan",
     images: ["https://thureinphyoko.com/minimal-og.png"],
   },
 };
