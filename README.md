@@ -2,8 +2,8 @@
 
 A high-performance, professional-grade E-commerce application built with **Next.js 16** and **TypeScript**. This project demonstrates advanced frontend architecture, state management, and a robust CI/CD pipeline.
 
-[\[Live Demo Link Here\]](https://minimal-mart.vercel.app)
-[\[Portfolio Link Here\]](www.thureinphyoko.com)
+[\[Live Demo Link\]](https://minimal-mart.vercel.app)
+[\[Portfolio Link\]](www.thureinphyoko.com)
 
 ## 🌟 Key Features
 - **Authentication & Security:** Protected routes for the Dashboard using a simulated Auth flow.
